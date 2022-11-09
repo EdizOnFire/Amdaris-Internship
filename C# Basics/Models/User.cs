@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace C_Sharp_Basics.Models
 {
-    public class UserModel
+    public abstract class User
     {
         private string _username;
         private string _password;
@@ -21,5 +21,7 @@ namespace C_Sharp_Basics.Models
         {
             set { _password = value; }
         }
+
+        public abstract void Welcome();
     }
 }

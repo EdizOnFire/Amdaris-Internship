@@ -8,17 +8,10 @@ public static class AudioEditorApp
         return Console.ReadLine();
     }
 
-    public static void Register(UserModel user)
+    public static void Register(RegisteredUser user)
     {
         user.Username = AnswerFromConsole("Please enter your username: ");
         user.Password = AnswerFromConsole("Please enter your password: ");
-    }
-
-    public static void GetUserInfo(UserModel user)
-    {
-        Console.WriteLine("Login details:");
-        Console.WriteLine($"Username: {user.Username}");
-        Console.WriteLine($"Password: *****");
     }
 
     public static void UploadFileQuestion()
@@ -26,7 +19,7 @@ public static class AudioEditorApp
         string answer = AnswerFromConsole("Do you want to upload audio? 'y' or 'n'. ");
         if (answer == "y")
         {
-            AudioEditorModel.UploadAudio();
+            AudioEditor.UploadAudio();
             ChangePitchQuestion();
         }
     }
@@ -40,12 +33,12 @@ public static class AudioEditorApp
             if (answer == "i")
             {
                 answer = AnswerFromConsole("By how much? ");
-                PitchEditorModel.IncreasePitch(int.Parse(answer));
+                PitchEditor.IncreasePitch(int.Parse(answer));
             }
             else if (answer == "l")
             {
                 answer = AnswerFromConsole("By how much? ");
-                PitchEditorModel.LowerPitch(int.Parse(answer));
+                PitchEditor.LowerPitch(int.Parse(answer));
             }
         }
     }

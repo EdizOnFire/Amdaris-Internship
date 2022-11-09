@@ -1,10 +1,10 @@
 ﻿using C_Sharp_Basics.Models;
 
 Console.WriteLine("You will have to register in order to use the app.");
-UserModel user = new UserModel();
+RegisteredUser user = new RegisteredUser();
 
 AudioEditorApp.Register(user);
 Console.Clear();
-AudioEditorApp.GetUserInfo(user);
+user.Welcome();
 AudioEditorApp.UploadFileQuestion();
 Console.ReadLine();

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace C_Sharp_Basics.Models
 {
-    public class AudioEditorModel
+    public abstract class AudioEditor
     {
+        public virtual void Clarification()
+        {
+            Console.WriteLine("You've opened the Audio Editor.");
+        }
+
         public static void UploadAudio()
         {
             Console.WriteLine("The audio file is uploaded.");
