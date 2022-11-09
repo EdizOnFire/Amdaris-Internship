@@ -1,9 +1,10 @@
 ﻿using C_Sharp_Basics.Models;
 
-ComputerModel computer = new ComputerModel();
+Console.WriteLine("You will have to register in order to use the app.");
+UserModel user = new UserModel();
 
-MachineCreatorApp.CreateComputer(computer);
+AudioEditorApp.Register(user);
 Console.Clear();
-
-MachineCreatorApp.GetComputerInfo(computer);
-MachineCreatorApp.TurnOnOrOff(computer);
+AudioEditorApp.GetUserInfo(user);
+AudioEditorApp.UploadFileQuestion();
+Console.ReadLine();
