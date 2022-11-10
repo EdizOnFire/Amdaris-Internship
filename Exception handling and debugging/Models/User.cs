@@ -20,6 +20,7 @@ namespace Exception_handling_and_debugging.Models
         public string Password
         {
             set { _password = value; }
+            get { return _password; }
         }
 
         public abstract void Welcome();

@@ -1,4 +1,5 @@
-﻿using Exception_handling_and_debugging.Models;
+﻿using Exception_handling_and_debugging;
+using Exception_handling_and_debugging.Models;
 
 public static class AudioEditorApp
 {
@@ -27,52 +28,66 @@ public static class AudioEditorApp
     public static void ChangePitchQuestion()
     {
         string answer = AnswerFromConsole("Do you want to change the pitch? 'y' or 'n'. ");
-        if (answer == "y")
+        try
         {
-            answer = AnswerFromConsole("Do you want to increase or lower the pitch? 'i' or 'l'. ");
-            if (answer == "i")
+            if (answer == "y")
             {
-                try
+                answer = AnswerFromConsole("Do you want to increase or lower the pitch? 'i' or 'l'. ");
+                if (answer == "i")
                 {
-                    answer = AnswerFromConsole("By how much? ");
-                    PitchEditor.IncreasePitch(int.Parse(answer));
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Enter only numbers.");
-                    ChangePitchQuestion();
-                }
-                finally
-                {
-                    answer = AnswerFromConsole("Do you want to upload another audio file? 'y' or 'n'. ");
-                    if (answer == "y")
+                    try
                     {
-                        AudioEditor.UploadAudio();
+                        answer = AnswerFromConsole("By how much? ");
+                        if (answer == "0")
+                        {
+                            throw new ZeroException();
+                        }
+
+                        PitchEditor.IncreasePitch(int.Parse(answer));
+                    }
+                    catch (ZeroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        ChangePitchQuestion();
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Enter only numbers.");
+                        ChangePitchQuestion();
+                    }
+                }
+                else if (answer == "l")
+                {
+                    try
+                    {
+                        answer = AnswerFromConsole("By how much? ");
+                        if (answer == "0")
+                        {
+                            throw new ZeroException();
+                        }
+
+                        PitchEditor.LowerPitch(int.Parse(answer));
+                    }
+                    catch (ZeroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        ChangePitchQuestion();
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Enter only numbers.");
                         ChangePitchQuestion();
                     }
                 }
             }
-            else if (answer == "l")
+        }
+        finally
+        {
+            answer = AnswerFromConsole("Do you want to upload another audio file? 'y' or 'n'. ");
+            if (answer == "y")
             {
-                try
-                {
-                    answer = AnswerFromConsole("By how much? ");
-                    PitchEditor.LowerPitch(int.Parse(answer));
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Enter only numbers.");
-                    ChangePitchQuestion();
-                }
-                finally
-                {
-                    answer = AnswerFromConsole("Do you want to upload another audio file? 'y' or 'n'. ");
-                    if (answer == "y")
-                    {
-                        AudioEditor.UploadAudio();
-                        ChangePitchQuestion();
-                    }
-                }
+                AudioEditor.UploadAudio();
+                ChangePitchQuestion();
             }
         }
     }

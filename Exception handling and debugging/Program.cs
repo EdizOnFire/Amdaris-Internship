@@ -1,9 +1,23 @@
-﻿using Exception_handling_and_debugging.Models;
+﻿using Exception_handling_and_debugging;
+using Exception_handling_and_debugging.Models;
 
 Console.WriteLine("You will have to register in order to use the app.");
 RegisteredUser user = new RegisteredUser();
 
-AudioEditorApp.Register(user);
+try
+{
+    AudioEditorApp.Register(user);
+    if (user.Password.Length < 5)
+    {
+        throw new PasswordLengthException();
+    }
+}
+catch (PasswordLengthException e)
+{
+    Console.WriteLine(e.Message);
+    return;
+}
+
 Console.Clear();
 user.Welcome();
 AudioEditorApp.UploadFileQuestion();
