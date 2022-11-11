@@ -4,15 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exception_handling_and_debugging
+namespace Exceptions
 {
-    public class ZeroException : Exception
-    {
-        public ZeroException()
-            : base("Enter a number higher or lower than 0.")
-        { }
-    }
-
     public class PasswordLengthException : Exception
     {
         public PasswordLengthException()

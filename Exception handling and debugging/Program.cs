@@ -1,5 +1,5 @@
-﻿using Exception_handling_and_debugging;
-using Exception_handling_and_debugging.Models;
+﻿using Exception_handling_and_debugging.Models;
+using Exceptions;
 
 Console.WriteLine("You will have to register in order to use the app.");
 RegisteredUser user = new RegisteredUser();

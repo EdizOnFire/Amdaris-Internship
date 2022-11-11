@@ -1,5 +1,5 @@
-﻿using Exception_handling_and_debugging;
-using Exception_handling_and_debugging.Models;
+﻿using Exception_handling_and_debugging.Models;
+using Exceptions;
 
 public static class AudioEditorApp
 {
@@ -28,9 +28,9 @@ public static class AudioEditorApp
     public static void ChangePitchQuestion()
     {
         string answer = AnswerFromConsole("Do you want to change the pitch? 'y' or 'n'. ");
-        try
+        if (answer == "y")
         {
-            if (answer == "y")
+            try
             {
                 answer = AnswerFromConsole("Do you want to increase or lower the pitch? 'i' or 'l'. ");
                 if (answer == "i")
@@ -79,14 +79,14 @@ public static class AudioEditorApp
                         ChangePitchQuestion();
                     }
                 }
+                else
+                {
+                    throw new InvalidEditAction();
+                }
             }
-        }
-        finally
-        {
-            answer = AnswerFromConsole("Do you want to upload another audio file? 'y' or 'n'. ");
-            if (answer == "y")
+            catch (InvalidEditAction e)
             {
-                AudioEditor.UploadAudio();
+                Console.WriteLine(e.Message);
                 ChangePitchQuestion();
             }
         }
