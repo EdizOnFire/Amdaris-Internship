@@ -33,12 +33,12 @@ public static class AudioEditorApp
             if (answer == "i")
             {
                 answer = AnswerFromConsole("By how much? ");
-                PitchEditor.IncreasePitch(int.Parse(answer));
+                PitchEditor.IncreasePitch(Convert.ToInt(answer));
             }
             else if (answer == "l")
             {
                 answer = AnswerFromConsole("By how much? ");
-                PitchEditor.LowerPitch(int.Parse(answer));
+                PitchEditor.LowerPitch(Convert.ToInt(answer));
             }
         }
     }
