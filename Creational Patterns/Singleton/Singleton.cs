@@ -33,7 +33,6 @@ namespace Singleton
         public void WriteMessage(string message)
         {
             WriteLine(message);
-            ReadLine();
         }
     }
 }
