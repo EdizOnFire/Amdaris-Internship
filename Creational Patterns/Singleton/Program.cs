@@ -1,4 +1,4 @@
-﻿using static System.Console;
+﻿using System;
 
 namespace Singleton
 {
@@ -10,9 +10,6 @@ namespace Singleton
             Singleton instance2 = Singleton.Instance;
 
             //When app runs, the second instance is not being created
-
-            instance1.WriteMessage("Hello from instance1.");
-            instance2.WriteMessage("Hello from instance2.");
         }
     }
 }

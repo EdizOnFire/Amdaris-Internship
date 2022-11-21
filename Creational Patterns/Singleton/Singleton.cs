@@ -23,16 +23,10 @@ namespace Singleton
                     {
                         instance = new Singleton();
                     }
-
                 }
 
                 return instance;
             }
-        }
-
-        public void WriteMessage(string message)
-        {
-            WriteLine(message);
         }
     }
 }
