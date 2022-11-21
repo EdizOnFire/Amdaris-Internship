@@ -1,48 +1,109 @@
-﻿using System.IO;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Security.Cryptography;
 using static System.Console;
 
-string fileName = "encrypted.bin";
-byte[] key = { 145, 12, 32, 245, 98, 132, 98, 214, 6, 77, 131, 44, 221, 3, 9, 50 };
-byte[] iv = { 15, 122, 132, 5, 93, 198, 44, 31, 9, 39, 241, 49, 250, 188, 80, 7 };
-byte[] data = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-CreateAndEncrypt();
-Decrypt();
-Compress();
-
-//Create and Encrypt
-
-void CreateAndEncrypt()
+namespace File_System_and_Streams
 {
-    using (SymmetricAlgorithm algorithm = Aes.Create())
-    using (ICryptoTransform encryptor = algorithm.CreateEncryptor(key, iv))
-    using (Stream f = File.Create(fileName))
-    using (Stream c = new CryptoStream(f, encryptor, CryptoStreamMode.Write))
-        c.Write(data, 0, data.Length);
-}
+    class Program
+    {
+        public static void Main()
+        {
+            string fileName = "encrypted.txt";
+            string compressedFileName = "compressed.gz";
+            string decompressedFileName = "decompressed.txt";
+            string data = "This is decrypted data.";
+            using Aes aes = Aes.Create();
+            byte[] key = aes.Key;
+            byte[] iv = aes.IV;
 
-//Decrypt
+            Encrypt();
+            Decrypt();
+            Compress();
+            Decompress();
+            PrintResults();
 
-void Decrypt()
-{
-    WriteLine("Decrypted data:");
-    byte[] decrypted = new byte[5];
-    using (SymmetricAlgorithm algorithm = Aes.Create())
-    using (ICryptoTransform decryptor = algorithm.CreateDecryptor(key, iv))
-    using (Stream f = File.OpenRead(fileName))
-    using (Stream c = new CryptoStream(f, decryptor, CryptoStreamMode.Read))
-        for (int b; (b = c.ReadByte()) > -1;)
-            Write(b + " ");
-}
+            void Encrypt()
+            {
 
-//Compress
+                try
+                {
+                    using FileStream myStream = new FileStream(fileName, FileMode.OpenOrCreate);
+                    myStream.Write(iv, 0, iv.Length);
 
-void Compress()
-{
-    using FileStream originalFileStream = File.Open(fileName, FileMode.Open);
-    using FileStream compressedFileStream = File.Create("compressed.gz");
-    using var compressor = new GZipStream(compressedFileStream, CompressionMode.Compress);
-    originalFileStream.CopyTo(compressor);
+                    using CryptoStream cryptStream = new CryptoStream(
+                        myStream,
+                        aes.CreateEncryptor(),
+                        CryptoStreamMode.Write);
+
+                    using StreamWriter sWriter = new StreamWriter(cryptStream);
+                    sWriter.WriteLine(data);
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                    throw;
+                }
+
+                try
+                {
+                    string text = File.ReadAllText(fileName);
+                    WriteLine($"Encrypted data: {text}");
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                    throw;
+                }
+            }
+
+            void Decrypt()
+            {
+                try
+                {
+                    using FileStream myStream = new FileStream(fileName, FileMode.Open);
+                    myStream.Read(iv, 0, iv.Length);
+
+                    using CryptoStream cryptStream = new CryptoStream(
+                       myStream,
+                       aes.CreateDecryptor(key, iv),
+                       CryptoStreamMode.Read);
+
+                    using StreamReader sReader = new StreamReader(cryptStream);
+                    WriteLine($"Decrypted data: {sReader.ReadToEnd()}");
+                }
+                catch (Exception e)
+                {
+                    WriteLine(e.Message);
+                    throw;
+                }
+            }
+
+            void Compress()
+            {
+                using FileStream originalFileStream = File.Open(fileName, FileMode.Open);
+                using FileStream compressedFileStream = File.Create(compressedFileName);
+                using var compressor = new GZipStream(compressedFileStream, CompressionMode.Compress);
+                originalFileStream.CopyTo(compressor);
+            }
+
+            void Decompress()
+            {
+                using FileStream compressedFileStream = File.Open(compressedFileName, FileMode.Open);
+                using FileStream outputFileStream = File.Create(decompressedFileName);
+                using var decompressor = new GZipStream(compressedFileStream, CompressionMode.Decompress);
+                decompressor.CopyTo(outputFileStream);
+            }
+
+            void PrintResults()
+            {
+                long originalSize = new FileInfo(fileName).Length;
+                long compressedSize = new FileInfo(compressedFileName).Length;
+                long decompressedSize = new FileInfo(decompressedFileName).Length;
+
+                WriteLine($"The original file '{fileName}' weighs {originalSize} bytes.");
+                WriteLine($"The compressed file '{compressedFileName}' weighs {compressedSize} bytes.");
+                WriteLine($"The decompressed file '{decompressedFileName}' weighs {decompressedSize} bytes.");
+            }
+        }
+    }
 }
