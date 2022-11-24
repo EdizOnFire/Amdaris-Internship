@@ -1,8 +1,6 @@
-﻿using Models;
-using Exceptions;
-using static System.Console;
+﻿using static System.Console;
 
-namespace StructuralPattern
+namespace Application
 {
     class Answer
     {

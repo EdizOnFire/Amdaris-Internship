@@ -1,8 +1,8 @@
-﻿using Models;
-using Exceptions;
-using static System.Console;
+﻿using static System.Console;
+using System;
+using Domain;
 
-namespace StructuralPattern
+namespace Application
 {
     class PitchEditor : AudioEditor
     {

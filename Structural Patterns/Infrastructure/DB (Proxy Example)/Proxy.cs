@@ -1,8 +1,8 @@
 ﻿using static System.Console;
 
-namespace StructuralPattern
+namespace Infrastructure
 {
-    internal class Proxy
+    public class Proxy
     {
         public static void UploadToDB()
         {

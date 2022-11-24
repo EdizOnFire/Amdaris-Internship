@@ -1,6 +1,7 @@
 ﻿using static System.Console;
+using System;
 
-namespace Exceptions
+namespace Application
 {
     public class PasswordLengthException : Exception
     {

@@ -1,6 +1,8 @@
-﻿using Models;
+﻿using static System.Console;
+using Domain;
+using Infrastructure;
 
-namespace StructuralPattern
+namespace Application
 {
     class Upload
     {

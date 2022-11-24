@@ -1,10 +1,9 @@
-﻿using Models;
-using Exceptions;
-using static System.Console;
+﻿using static System.Console;
+using Domain;
 
-namespace StructuralPattern
+namespace Application
 {
-    class ServicesFacade
+    public class ServicesFacade
     {
         public static void UseServices()
         {

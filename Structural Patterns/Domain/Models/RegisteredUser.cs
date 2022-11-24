@@ -1,6 +1,6 @@
 ﻿using static System.Console;
 
-namespace Models
+namespace Domain
 {
     public class RegisteredUser : User
     {

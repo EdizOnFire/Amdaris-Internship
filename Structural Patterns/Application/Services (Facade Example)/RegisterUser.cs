@@ -1,6 +1,7 @@
-﻿using Models;
+﻿using static System.Console;
+using Domain;
 
-namespace StructuralPattern
+namespace Application
 {
     class RegisterUser
     {
