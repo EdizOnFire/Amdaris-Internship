@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioEditor.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221205155353_ManyToManyAdded")]
-    partial class ManyToManyAdded
+    [Migration("20221205161603_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,7 @@ namespace AudioEditor.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UserId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -53,29 +54,6 @@ namespace AudioEditor.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AudioFiles");
-                });
-
-            modelBuilder.Entity("AudioEditor.Core.Models.AudioFile_User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AudioFileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AudioFileId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AudioFile_Users");
                 });
 
             modelBuilder.Entity("AudioEditor.Core.Models.User", b =>
@@ -109,39 +87,17 @@ namespace AudioEditor.Infrastructure.Migrations
             modelBuilder.Entity("AudioEditor.Core.Models.AudioFile", b =>
                 {
                     b.HasOne("AudioEditor.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AudioEditor.Core.Models.AudioFile_User", b =>
-                {
-                    b.HasOne("AudioEditor.Core.Models.AudioFile", "AudioFile")
-                        .WithMany("AudioFile_Users")
-                        .HasForeignKey("AudioFileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AudioEditor.Core.Models.User", "User")
-                        .WithMany("AudioFile_Users")
+                        .WithMany("AudioFiles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AudioFile");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AudioEditor.Core.Models.AudioFile", b =>
-                {
-                    b.Navigation("AudioFile_Users");
                 });
 
             modelBuilder.Entity("AudioEditor.Core.Models.User", b =>
                 {
-                    b.Navigation("AudioFile_Users");
+                    b.Navigation("AudioFiles");
                 });
 #pragma warning restore 612, 618
         }

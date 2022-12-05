@@ -21,6 +21,7 @@ namespace AudioEditor.Application.Services
             {
                 FileName = audioFile.FileName,
                 Format = audioFile.Format,
+                UserId= audioFile.UserId,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now
             };
@@ -35,6 +36,7 @@ namespace AudioEditor.Application.Services
             {
                 _audioFile.FileName = audioFile.FileName;
                 _audioFile.Format = audioFile.Format;
+                _audioFile.UserId = audioFile.UserId;
                 _audioFile.ModifiedDate = DateTime.Now;
 
                 _context.SaveChanges();

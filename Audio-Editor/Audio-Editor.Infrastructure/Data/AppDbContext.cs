@@ -10,18 +10,14 @@ namespace AudioEditor.Infrastructure.Data
             options.UseSqlServer(constring);
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AudioFile_User>()
-                .HasOne(a => a.AudioFile)
-                .WithMany(au => au.AudioFile_Users)
-                .HasForeignKey(ai => ai.AudioFileId);
-            modelBuilder.Entity<AudioFile_User>()
-               .HasOne(a => a.User)
-               .WithMany(au => au.AudioFile_Users)
-               .HasForeignKey(ai => ai.UserId);
+            modelBuilder.Entity<AudioFile>()
+                .HasOne(u => u.User);
+
+            modelBuilder.Entity<User>()
+               .HasMany(af => af.AudioFiles);
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<AudioFile> AudioFiles { get; set; }
-        public DbSet<AudioFile_User> AudioFile_Users { get; set; }
     }
 }

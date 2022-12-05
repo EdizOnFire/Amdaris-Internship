@@ -10,6 +10,7 @@ namespace AudioEditor.API
         {
             services.AddControllers();
             services.AddTransient<AudioFilesService>();
+            services.AddTransient<UsersService>();
             services.AddDbContext<AppDbContext>();
 
             services.AddSwaggerGen(c =>

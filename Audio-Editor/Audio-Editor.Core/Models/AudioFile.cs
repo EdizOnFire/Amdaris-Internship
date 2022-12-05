@@ -8,6 +8,5 @@ namespace AudioEditor.Core.Models
         public string? Format { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }
-        public List<AudioFile_User>? AudioFile_Users { get; set; }
     }
 }
