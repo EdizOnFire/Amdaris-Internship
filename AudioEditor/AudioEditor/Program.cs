@@ -1,11 +1,14 @@
 using AudioEditor.Application.Abstract;
 using AudioEditor.Application.Commands;
+using AudioEditor.Application.Services;
 using AudioEditor.Infrastructure;
 using AudioEditor.Infrastructure.Repository;
 using MediatR;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddTransient<IStorageService, StorageService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
