@@ -9,11 +9,15 @@ namespace AudioEditor.Application.Services
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly IConfiguration _configuration;
-        public StorageService(BlobServiceClient blobServiceClient, IConfiguration configuration)
+
+        public StorageService(
+            BlobServiceClient blobServiceClient,
+            IConfiguration configuration)
         {
             _blobServiceClient = blobServiceClient;
             _configuration = configuration;
         }
+
         public void Upload(IFormFile formFile)
         {
             var containerName = _configuration.GetSection("Storage:ContainerName").Value;

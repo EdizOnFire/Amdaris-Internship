@@ -18,8 +18,8 @@ namespace AudioEditor.Application.Commands
                 FileName = request.FileName,
                 Format = request.Format,
                 UserId = request.UserId,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now
+                Path = request.Path,
+                LastModified = DateTime.Now
             };
 
             await _unitOfWork.AudioFileRepository.Add(audioFile);

@@ -19,7 +19,7 @@ namespace AudioEditor.Application.Commands
                 FileName = request.FileName,
                 Format = request.Format,
                 UserId = request.UserId,
-                ModifiedDate = DateTime.Now
+                LastModified = DateTime.Now
             };
 
             await _unitOfWork.AudioFileRepository.Update(audioFile);
