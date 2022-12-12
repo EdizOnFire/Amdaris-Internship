@@ -52,8 +52,8 @@ namespace AudioEditor.API.Controllers
             {
                 FileName = audioFile.FileName,
                 Format = audioFile.Format,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
+                Path = audioFile.Path,
+                LastModified = DateTime.Now,
                 UserId = audioFile.UserId
             };
 
