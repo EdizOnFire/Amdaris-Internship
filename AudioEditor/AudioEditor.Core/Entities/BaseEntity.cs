@@ -6,7 +6,6 @@ namespace AudioEditor.Core.Entities
     {
         [Key]
         public int Id { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }

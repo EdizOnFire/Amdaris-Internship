@@ -6,6 +6,7 @@ namespace AudioEditor.Core.Entities
     {
         public string FileName { get; set; } = null!;
         public string Format { get; set; } = null!;
+        public string Path { get; set; } = null!;
         public int UserId { get; set; }
     }
 }
