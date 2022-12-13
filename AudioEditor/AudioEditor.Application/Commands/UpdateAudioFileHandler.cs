@@ -19,6 +19,7 @@ namespace AudioEditor.Application.Commands
                 FileName = request.FileName,
                 Format = request.Format,
                 UserId = request.UserId,
+                Path = request.Path,
                 LastModified = DateTime.Now
             };
 

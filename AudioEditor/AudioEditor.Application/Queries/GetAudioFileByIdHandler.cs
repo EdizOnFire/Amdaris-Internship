@@ -16,7 +16,7 @@ namespace AudioEditor.Application.Queries
 
         public async Task<AudioFile> Handle(GetAudioFileById request, CancellationToken cancellationToken)
         {
-            return await this._unitOfWork.AudioFileRepository.GetById(request.Id);
+            return await _unitOfWork.AudioFileRepository.GetById(request.Id);
         }
     }
 }
