@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioEditor.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioEditor.Infrastructure", "AudioEditor.Infrastructure\AudioEditor.Infrastructure.csproj", "{99FC1166-D496-4337-B83A-DD63D5D66E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioEditor.Tests", "AudioEditor.Tests\AudioEditor.Tests.csproj", "{4AD1FA0F-F561-42C0-9549-F1803A1AD8A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{99FC1166-D496-4337-B83A-DD63D5D66E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99FC1166-D496-4337-B83A-DD63D5D66E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99FC1166-D496-4337-B83A-DD63D5D66E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD1FA0F-F561-42C0-9549-F1803A1AD8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD1FA0F-F561-42C0-9549-F1803A1AD8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD1FA0F-F561-42C0-9549-F1803A1AD8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD1FA0F-F561-42C0-9549-F1803A1AD8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
