@@ -4,6 +4,7 @@ namespace AudioEditor.API.Dtos
 {
     public class GetAudioFileDto
     {
+        [Key]
         public int Id { get; set; }
         public string FileName { get; set; } = null!;
         public string Format { get; set; } = null!;

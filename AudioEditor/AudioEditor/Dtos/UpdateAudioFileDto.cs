@@ -9,6 +9,7 @@ namespace AudioEditor.API.Dtos
         public string FileName { get; set; } = null!;
         public string Format { get; set; } = null!;
         public int UserId { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public string Path { get; set; } = null!;
+        public DateTime LastModified { get; set; }
     }
 }

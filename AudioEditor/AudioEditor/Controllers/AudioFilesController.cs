@@ -26,6 +26,10 @@ namespace AudioEditor.API.Controllers
         {
             var result = await _mediator.Send(new GetAllAudioFiles());
             var mappedResult = _mapper.Map<List<GetAudioFileDto>>(result);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             return Ok(mappedResult);
         }
 
@@ -35,8 +39,8 @@ namespace AudioEditor.API.Controllers
             var query = new GetAudioFileById { Id = id };
             var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var mappedResult = _mapper.Map<GetAudioFileDto>(result);
             return Ok(mappedResult);
@@ -66,16 +70,13 @@ namespace AudioEditor.API.Controllers
         [HttpPut("audio-files/update/{id}")]
         public async Task<IActionResult> Update([FromBody] UpdateAudioFileDto updateAudioFileDto, int id)
         {
-            var command = _mapper.Map<UpdateAudioFile>(updateAudioFileDto);
-
-            command.Id = id;
+            updateAudioFileDto.Id = id;
+            UpdateAudioFile command = _mapper.Map<UpdateAudioFile>(updateAudioFileDto);
 
             AudioFile result = await _mediator.Send(command);
 
-            if (result == null)
-            {
-                return NotFound();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             return Ok(result);
         }
@@ -84,10 +85,10 @@ namespace AudioEditor.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var command = new DeleteAudioFile { Id = id };
-            var result = await _mediator.Send(command);
+            await _mediator.Send(command);
 
-            if (result == null)
-                return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             return Ok("Deleted successfully.");
         }
