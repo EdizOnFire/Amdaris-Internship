@@ -8,13 +8,13 @@ namespace AudioEditor.Infrastructure
 
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
 
         public UnitOfWork(
             AppDbContext context,
             IAudioFileRepository audioFileRepository)
         {
-            this.context = context;
+            _context = context;
             AudioFileRepository = audioFileRepository;
         }
 
@@ -22,12 +22,12 @@ namespace AudioEditor.Infrastructure
 
         public void Dispose()
         {
-            this.context.Dispose();
+            _context.Dispose();
         }
 
         public async Task SaveAsync()
         {
-            await this.context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

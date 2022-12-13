@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioEditor.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221212163335_Initial")]
+    [Migration("20221213185108_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
