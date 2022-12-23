@@ -11,7 +11,7 @@ namespace AudioEditor.API.Profiles
         public AudioFileProfile()
         {
             CreateMap<AudioFile, GetAudioFileDto>();
-            CreateMap<CreateAudioFileDto, CreateAudioFile>();
+            CreateMap<AudioFile, CreateAudioFileDto>();
             CreateMap<UpdateAudioFileDto, UpdateAudioFile>();
         }
     }
