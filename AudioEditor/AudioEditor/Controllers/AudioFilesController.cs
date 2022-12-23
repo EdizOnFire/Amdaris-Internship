@@ -61,22 +61,23 @@ namespace AudioEditor.API.Controllers
         {
             var command = new CreateAudioFile
             {
+                Id = audioFile.Id,
                 FileName = audioFile.FileName,
                 Format = audioFile.Format,
+                UserId = audioFile.UserId,
                 Path = audioFile.Path,
-                LastModified = DateTime.Now,
-                UserId = audioFile.UserId
+                LastModified = DateTime.Now
             };
 
-            if (!ModelState.IsValid)
+            var result = await _mediator.Send(command);
+            var mappedResult = _mapper.Map<CreateAudioFileDto>(result);
+
+            if (mappedResult == null)
             {
-                _logger.LogError("Creating audio file failed.");
-                return BadRequest(ModelState);
+                return BadRequest("Audio file could not be created.");
             }
 
-            var result = await _mediator.Send(command);
-            var mappedResult = _mapper.Map<GetAudioFileDto>(result);
-            _logger.LogInformation($"Audio file created successfully.");
+            _logger.LogInformation("Audio file created successfully.");
             return CreatedAtAction(nameof(GetById), new { id = mappedResult.Id }, mappedResult);
         }
 
@@ -113,8 +114,8 @@ namespace AudioEditor.API.Controllers
 
                 var command = new DeleteAudioFile { Id = id };
                 var actualResult = await _mediator.Send(command);
-                _logger.LogInformation($"Audio file deleted successfully.");
-                return Ok($"Audio file deleted successfully.");
+                _logger.LogInformation("Audio file deleted successfully.");
+                return Ok("Audio file deleted successfully.");
             }
             catch (FileNotFoundException e)
             {

@@ -27,6 +27,8 @@ namespace AudioEditor.Controllers
         {
             try
             {
+                string filesPath = "https://audioeditor.blob.core.windows.net/files/";
+
                 if (files.Count == 0)
                 {
                     throw new NoFilesSelectedException();
@@ -34,13 +36,18 @@ namespace AudioEditor.Controllers
 
                 foreach (var file in files)
                 {
-                    _storageService.Upload(file);
-
                     FileInfo fi = new(file.FileName);
+                    if (fi.Extension != ".mp3" && fi.Extension != ".wav")
+                    {
+                        _logger.LogError("Unsupported file format.");
+                        return BadRequest("Unsupported file format.");
+                    }
+
+                    _storageService.Upload(file);
                     AudioFile audioFile = new();
                     audioFile.FileName = fi.Name;
                     audioFile.Format = fi.Extension;
-                    audioFile.Path = $"https://audioeditor.blob.core.windows.net/files/{fi}";
+                    audioFile.Path = filesPath + fi;
                     audioFile.LastModified = DateTime.Now;
                     _dbContext.AudioFiles.Add(audioFile);
                     _dbContext.SaveChanges();
