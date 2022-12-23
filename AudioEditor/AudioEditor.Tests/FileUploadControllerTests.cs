@@ -1,33 +1,49 @@
-﻿using AudioEditor.API.Controllers;
-using AudioEditor.API.Dtos;
-using AudioEditor.Application.Abstract;
+﻿using AudioEditor.Application.Abstract;
 using AudioEditor.Controllers;
 using AudioEditor.Infrastructure;
-using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AudioEditor.Tests
 {
     public class FileUploadControllerTests
     {
-        public IWebHostEnvironment hostingEnvironment;
-        public IStorageService storageService;
-        public AppDbContext dbContext;
-        private readonly ILogger<FileUploadController> logger;
+        readonly Mock<IWebHostEnvironment> hostingEnvironment = new();
+        readonly Mock<IStorageService> storageService = new();
+        readonly AppDbContext dbContext = new();
+        readonly Mock<ILogger<FileUploadController>> logger = new();
 
         [Fact]
-        public async void AudioFilesController_GetAudioFiles_ReturnОк()
+        public void FileUploadController_Upload_ReturnОk()
         {
+            var audioFile = new Mock<IFormFile>();
+            audioFile.Setup(f => f.FileName).Returns("audio.mp3");
+            var audioFiles = new List<IFormFile> { audioFile.Object };
 
+            var controller = new FileUploadController(hostingEnvironment.Object, storageService.Object, dbContext, logger.Object);
+            var result = controller.Upload(audioFiles);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnValue = Assert.IsType<string>(okResult.Value);
+            Assert.Equal("File/s uploaded.", returnValue);
+        }
+
+        [Fact]
+        public void FileUploadController_Upload_ReturnBadRequest()
+        {
+            var audioFile = new Mock<IFormFile>();
+            audioFile.Setup(f => f.FileName).Returns("file");
+            var audioFiles = new List<IFormFile> { audioFile.Object };
+
+            var controller = new FileUploadController(hostingEnvironment.Object, storageService.Object, dbContext, logger.Object);
+            var result = controller.Upload(audioFiles);
+
+            var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+            var returnValue = Assert.IsType<string>(badRequest.Value);
+            Assert.Equal("Unsupported file format.", returnValue);
         }
     }
 }
