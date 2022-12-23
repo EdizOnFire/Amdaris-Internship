@@ -15,6 +15,7 @@ namespace AudioEditor.Application.Commands
         {
             var audioFile = new AudioFile
             {
+                Id = request.Id,
                 FileName = request.FileName,
                 Format = request.Format,
                 UserId = request.UserId,
