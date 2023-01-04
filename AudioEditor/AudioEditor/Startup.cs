@@ -24,6 +24,17 @@ namespace AudioEditor
             {
                 builder.AddBlobServiceClient(Configuration.GetSection("Storage:ConnectionString").Value);
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "CORSPolicy",
+                                  policy =>
+                                  {
+                                      policy
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .WithOrigins("http://localhost:3000");
+                                  });
+            });
             services.AddTransient<IStorageService, StorageService>();
 
             services.AddControllers();
@@ -39,7 +50,6 @@ namespace AudioEditor
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Audio Editor", Version = "v1" });
             });
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -50,13 +60,13 @@ namespace AudioEditor
             }
 
             app.UseRouting();
-
+            app.UseCors("CORSPolicy");
             app.UseHttpsRedirection();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
+
     }
 }

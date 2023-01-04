@@ -3,6 +3,7 @@ using AudioEditor.Application.Exceptions;
 using AudioEditor.Core.Entities;
 using AudioEditor.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AudioEditor.Controllers
 {
@@ -36,6 +37,7 @@ namespace AudioEditor.Controllers
 
                 foreach (var file in files)
                 {
+                    _logger.LogInformation($"{file}");
                     FileInfo fi = new(file.FileName);
                     if (fi.Extension != ".mp3" && fi.Extension != ".wav")
                     {
