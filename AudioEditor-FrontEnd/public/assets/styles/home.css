@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  background-color: black;
+}
+
+section {
+  height: 950px;
+}
+
+a {
+  color: #9552ff;
+  text-decoration: none;
+}
+
+section {
+  background-color: black;
+}
+
+footer {
+  color:black;
+  text-align: left;
+  padding: 20px;
+  background-color:#9552ff;
+}
+
+nav {
+  margin-bottom: 0;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+}
+
+nav ul {
+  text-align: left;
+  margin: 0;
+  padding: 10px 0;
+  background-color: #9552ff;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav ul li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+nav ul li a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+#welcomePage h2 {
+  margin: 0;
+  padding: 20px 0;
+  font-size: 50px;
+  text-align: center;
+  color: #9552ff;
+}
+
+#welcomePage h1 {
+  margin: 0;
+  font-style: italic;
+  font-size: 100px;
+  text-align: center;
+  color: #9552ff;
+  text-shadow: 4px 4px 2px #6607ff;
+}
+
+#welcomePage p {
+  color: #9552ff;
+  margin: 50px;
+}
+
+#welcomePage p a {
+  color: white;
+}
+
+#homeImage {
+  max-width: 800px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

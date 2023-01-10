@@ -1,0 +1,69 @@
+h4 {
+    padding: 14px 0px;
+    margin: 0;
+}
+
+audio {
+    margin: 20px;
+    color:#9552ff;
+}
+
+.section-title {
+    border-left-width: 10px;
+    border-left-style: solid;
+    border-left-color: #9552ff;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #9552ff;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #9552ff;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #9552ff;
+    padding: 0px 15px;
+    margin-left: 38%;
+    margin-right: 38%;
+    background-color: #000;
+}
+
+img {
+    max-width: 300px;
+}
+
+article {
+    color: #9552ff;
+    background: black;
+    margin: 50px;
+    display: inline-block;
+    border: 2px solid #9552ff;
+    border-radius: 6px;
+}
+
+.itemName {
+    margin: 20px;
+    color: white;
+}
+
+.itemFormat {
+    color: white;
+}
+
+.downloadButton {
+    align-content: center;
+    color: black;
+    padding: 4px 18px;
+    font-size: large;
+    border-radius: 20px;
+    background-color: #9552ff;
+    cursor: pointer;
+    margin: 15px;
+
+}
+
+.downloadButton:hover{
+    color: #9552ff;
+    background: black;
+    border: 1px solid #9552ff;
+    border-radius: 20px;
+}

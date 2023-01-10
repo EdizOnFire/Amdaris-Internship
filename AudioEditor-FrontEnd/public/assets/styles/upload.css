@@ -1,0 +1,19 @@
+#uploadInput {
+    align-content: center;
+    margin-top: 20px;
+    color: black;
+    padding: 4px 18px;
+    font-size: large;
+    border-radius: 4px;
+    background-color: #9552ff;
+}
+
+#uploadInput:hover {
+    color: #9552ff;
+    background: black;
+    border: 1px solid #9552ff;
+}
+
+#fileName {
+    color: #9552ff;
+}
