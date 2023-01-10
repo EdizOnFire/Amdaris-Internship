@@ -6,6 +6,7 @@ using AudioEditor.Infrastructure;
 using MediatR;
 using Microsoft.Extensions.Azure;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AudioEditor
 {
@@ -42,7 +43,12 @@ namespace AudioEditor
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAudioFileRepository, AudioFileRepository>();
 
-            services.AddDbContext<AppDbContext>();
+            var connectionString = Configuration.GetConnectionString("DefaultString");
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
             services.AddMediatR(typeof(CreateAudioFile));
             services.AddAutoMapper(typeof(Program));
             services.AddSwaggerGen(c =>

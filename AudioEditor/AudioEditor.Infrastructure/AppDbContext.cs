@@ -5,9 +5,10 @@ namespace AudioEditor.Infrastructure
 {
     public class AppDbContext : DbContext
     {
-        readonly string constring = "Data Source=EDIZONFIRE\\SQLEXPRESS;Initial Catalog=Database;Integrated Security=True;Encrypt=False";
-        protected override void OnConfiguring(DbContextOptionsBuilder options) =>
-            options.UseSqlServer(constring);
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<AudioFile> AudioFiles { get; set; }
