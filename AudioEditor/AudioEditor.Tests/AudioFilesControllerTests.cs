@@ -20,7 +20,7 @@ namespace AudioEditor.Tests.Controller
         readonly Mock<ILogger<AudioFilesController>> logger = new();
 
         [Fact]
-        public async void AudioFilesController_GetAudioFiles_ReturnÎê()
+        public async void AudioFilesController_GetAudioFiles_ReturnOk()
         {
             var audioFiles = new List<AudioFile>();
             var audioFilesDto = new List<GetAudioFileDto>();
@@ -41,7 +41,7 @@ namespace AudioEditor.Tests.Controller
         }
 
         [Fact]
-        public async void AudioFilesController_GetById_ReturnÎê()
+        public async void AudioFilesController_GetById_ReturnOk()
         {
             var id = 1;
             var audioFile = new AudioFile { Id = 1, FileName = "Item 1" };
@@ -86,7 +86,7 @@ namespace AudioEditor.Tests.Controller
         }
 
         [Fact]
-        public async void AudioFilesController_Update_ReturnÎê()
+        public async void AudioFilesController_Update_ReturnOk()
         {
             var id = 1;
             var audioFile = new AudioFile { Id = 1, FileName = "Item 1" };
@@ -103,7 +103,7 @@ namespace AudioEditor.Tests.Controller
         }
 
         [Fact]
-        public async void AudioFilesController_Delete_ReturnÎê()
+        public async void AudioFilesController_Delete_ReturnOk()
         {
             var id = 1;
             var audioFile = new AudioFile { Id = 1, FileName = "Item 1" };
