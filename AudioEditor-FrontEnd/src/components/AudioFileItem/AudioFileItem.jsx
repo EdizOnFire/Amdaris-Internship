@@ -1,13 +1,11 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import * as itemService from "../../services/itemService";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
 import { Button } from '@mui/material';
 
 const AudioFileItem = ({ item }) => {
     const [download, setDownload] = useState("");
     const [loadingState, setLoadingState] = useState(".....");
-    const audioRef = useRef(null);
 
     const onClick = (e) => {
         e.preventDefault();
@@ -20,7 +18,6 @@ const AudioFileItem = ({ item }) => {
                 console.log(newResponse);
                 const url = URL.createObjectURL(newResponse);
                 setDownload(url);
-                audioRef.current.src = url;
                 setLoadingState(".....");
             })
             .catch((error) => {
@@ -44,15 +41,13 @@ const AudioFileItem = ({ item }) => {
                 </div>
             ) : (
                 <div>
-                    <LoadingButton sx={{ cursor: 'default' }} download={item.fileName}>
+                    <div>
                         {loadingState}
-                    </LoadingButton >
+                    </div>
                 </div>
             )}
             <div>
-                <audio controls ref={audioRef}>
-                    <source src={audioRef} />
-                </audio>
+                <audio controls src={download} />
             </div>
         </article>
     );
