@@ -73,6 +73,5 @@ namespace AudioEditor
                 endpoints.MapControllers();
             });
         }
-
     }
 }
