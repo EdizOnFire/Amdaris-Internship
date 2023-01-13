@@ -1,9 +1,8 @@
 import { useState } from "react";
 import * as itemService from "../../services/itemService";
-import LoadingButton from '@mui/lab/LoadingButton';
 import { Button } from '@mui/material';
 
-const AudioFileItem = ({ item }) => {
+export default function AudioFileItem({ item }) {
     const [download, setDownload] = useState("");
     const [loadingState, setLoadingState] = useState(".....");
 
@@ -15,7 +14,6 @@ const AudioFileItem = ({ item }) => {
             .download(item.path)
             .then((response) => response.blob())
             .then((newResponse) => {
-                console.log(newResponse);
                 const url = URL.createObjectURL(newResponse);
                 setDownload(url);
                 setLoadingState(".....");
@@ -30,20 +28,20 @@ const AudioFileItem = ({ item }) => {
         <article className="audioFile">
             <div className="itemName">File name: {item.fileName}</div>
             <div className="itemFormat">Format: {item.format}</div>
-            <Button onClick={onClick} className="downloadButton">
-                Request Download
-            </Button>
+            <div>
+                <Button onClick={onClick} >
+                    Load Audio
+                </Button>
+            </div>
             {download ? (
                 <div>
-                    <Button href={download} variant="outlined" download={item.fileName}>
+                    <Button href={download} download={item.fileName}>
                         Download
                     </Button >
                 </div>
             ) : (
                 <div>
-                    <div>
-                        {loadingState}
-                    </div>
+                    {loadingState}
                 </div>
             )}
             <div>
@@ -52,5 +50,3 @@ const AudioFileItem = ({ item }) => {
         </article>
     );
 };
-
-export default AudioFileItem;
