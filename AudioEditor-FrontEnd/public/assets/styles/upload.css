@@ -5,15 +5,23 @@
     padding: 4px 18px;
     font-size: large;
     border-radius: 4px;
-    background-color: #9552ff;
+    background-color: #4c00c5;
 }
 
 #uploadInput:hover {
-    color: #9552ff;
+    color: #4c00c5;
     background: black;
-    border: 1px solid #9552ff;
+    border: 1px solid #4c00c5;
 }
 
 #fileName {
-    color: #9552ff;
+    color: #4c00c5;
 }
+
+/* form {
+    font-size: 100%;
+    margin-left: 38%;
+    margin-right: 38%;
+    border: 1px solid #9552ff;
+    background-color: black;
+} */

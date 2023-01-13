@@ -5,22 +5,22 @@ h4 {
 
 audio {
     margin: 20px;
-    color:#9552ff;
+    color: #4c00c5;
 }
 
 .section-title {
     border-left-width: 10px;
     border-left-style: solid;
-    border-left-color: #9552ff;
+    border-left-color: #4c00c5;
     border-right-width: 1px;
     border-right-style: solid;
-    border-right-color: #9552ff;
+    border-right-color: #4c00c5;
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: #9552ff;
+    border-top-color: #4c00c5;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #9552ff;
+    border-bottom-color: #4c00c5;
     padding: 0px 15px;
     margin-left: 38%;
     margin-right: 38%;
@@ -32,11 +32,11 @@ img {
 }
 
 article {
-    color: #9552ff;
+    color: #4c00c5;
     background: black;
     margin: 50px;
     display: inline-block;
-    border: 2px solid #9552ff;
+    border: 2px solid #4c00c5;
     border-radius: 6px;
 }
 
@@ -49,21 +49,6 @@ article {
     color: white;
 }
 
-.downloadButton {
-    align-content: center;
-    color: black;
-    padding: 4px 18px;
-    font-size: large;
-    border-radius: 20px;
-    background-color: #9552ff;
-    cursor: pointer;
-    margin: 15px;
-
-}
-
-.downloadButton:hover{
-    color: #9552ff;
-    background: black;
-    border: 1px solid #9552ff;
-    border-radius: 20px;
+button:hover {
+    color: rgb(218, 125, 255);
 }
