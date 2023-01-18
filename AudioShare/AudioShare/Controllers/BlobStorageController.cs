@@ -5,12 +5,16 @@ using AudioShare.Core.Entities;
 using AudioShare.Infrastructure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Specialized;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web.Resource;
 
 namespace AudioShare.Controllers
 {
-    [Route("audio-editor")]
+    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+    [Authorize]
+    [Route("audio-share")]
     [ApiController]
     public class BlobStorageController : ControllerBase
     {
