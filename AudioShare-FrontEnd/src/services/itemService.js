@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://localhost:5094/audio-editor";
+const baseUrl = "https://localhost:5094/audio-share";
 
 export const getAll = () => axios.get(baseUrl + "/audio-files");
 
