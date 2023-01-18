@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Audio_Editor": {
+    "AudioShare": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

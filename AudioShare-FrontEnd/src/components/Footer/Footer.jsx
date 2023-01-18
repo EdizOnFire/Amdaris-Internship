@@ -6,13 +6,13 @@ import RedditIcon from '@mui/icons-material/Reddit';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-const Footer = () => {
+export default function Footer() {
     return (
         <footer>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: "white" }}>
-                        &copy;AudioEditor
+                        &copy;AudioShare
                     </Box>
                     <FacebookIcon sx={{ color: "white", mx: 1 }} />
                     <InstagramIcon sx={{ color: "white", mx: 1 }} />
@@ -23,5 +23,3 @@ const Footer = () => {
         </footer>
     );
 };
-
-export default Footer;
