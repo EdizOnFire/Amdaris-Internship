@@ -5,11 +5,15 @@ using AudioShare.Application.Commands;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Web.Resource;
 
 namespace AudioShare.API.Controllers
 {
-    [Route("audio-editor")]
+    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+    [Authorize]
     [ApiController]
+    [Route("audio-share")]
     public class AudioFilesController : Controller
     {
         public readonly IMapper _mapper;
@@ -26,10 +30,19 @@ namespace AudioShare.API.Controllers
         [HttpGet("audio-files")]
         public async Task<IActionResult> GetAudioFiles()
         {
-            var result = await _mediator.Send(new GetAllAudioFiles());
-            var mappedResult = _mapper.Map<List<GetAudioFileDto>>(result);
-            _logger.LogInformation("Audio files listed successfully.");
-            return Ok(mappedResult);
+            try
+            {
+                var result = await _mediator.Send(new GetAllAudioFiles());
+                var mappedResult = _mapper.Map<List<GetAudioFileDto>>(result);
+                _logger.LogInformation("Audio files listed successfully.");
+
+                return Ok(mappedResult);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("audio-files/{id}")]
