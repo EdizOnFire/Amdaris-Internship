@@ -12,13 +12,16 @@ namespace AudioShare.Infrastructure
 
         public UnitOfWork(
             AppDbContext context,
-            IAudioFileRepository audioFileRepository)
+            IAudioFileRepository audioFileRepository,
+            ICommentRepository commentRepository)
         {
             _context = context;
             AudioFileRepository = audioFileRepository;
+            CommentRepository = commentRepository;
         }
 
         public IAudioFileRepository AudioFileRepository { get; private set; }
+        public ICommentRepository CommentRepository { get; private set; }
 
         public void Dispose()
         {

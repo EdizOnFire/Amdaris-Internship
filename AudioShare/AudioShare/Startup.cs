@@ -49,6 +49,7 @@ namespace AudioShare
             services.AddTransient<IStorageService, StorageService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAudioFileRepository, AudioFileRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             var connectionString = Configuration.GetConnectionString("DefaultString");
             services.AddDbContext<AppDbContext>(options =>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AudioShare.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace AudioShare.API.Dtos
 {
@@ -11,7 +12,7 @@ namespace AudioShare.API.Dtos
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Path { get; set; } = null!;
-        public int User { get; set; }
-        public string[] Comments { get; set; } = null!;
+        public string User { get; set; } = null!;
+        public List<Comment> Comments { get; set; } = new();
     }
 }

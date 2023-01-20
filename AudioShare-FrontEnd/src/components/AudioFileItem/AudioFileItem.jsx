@@ -1,28 +1,37 @@
 import { useState } from "react";
 import * as itemService from "../../services/itemService";
 import { Box, Button } from '@mui/material';
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../../authConfig";
 
 export default function AudioFileItem({ item }) {
+    const { instance, accounts } = useMsal();
     const [download, setDownload] = useState("");
     const [loadingState, setLoadingState] = useState(".....");
 
     const onClick = (e) => {
         e.preventDefault();
-
         setLoadingState("Retrieving...");
-        itemService
-            .download(item.path)
-            .then((response) => response.blob())
-            .then((newResponse) => {
-                const url = URL.createObjectURL(newResponse);
-                setDownload(url);
-                setLoadingState(".....");
+        instance.acquireTokenSilent(
+            {
+                ...loginRequest,
+                account: accounts[0]
             })
-            .catch((error) => {
-                console.error(error);
-                setLoadingState("Failed");
-            });
-    };
+            .then((response) => {
+                itemService
+                    .download(item.path)
+                    .then((response) => {
+                        const url = URL.createObjectURL(response);
+                        setDownload(url);
+                        setLoadingState(".....");
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        setLoadingState("Failed");
+                    });
+            }
+            )
+    }
 
     return (
         <Box component="article" className="audioFile">

@@ -10,10 +10,8 @@ using Microsoft.Identity.Web.Resource;
 
 namespace AudioShare.API.Controllers
 {
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-    [Authorize]
     [ApiController]
-    [Route("audio-share")]
+    [Route("audio-share/audio-files")]
     public class AudioFilesController : Controller
     {
         public readonly IMapper _mapper;
@@ -27,7 +25,7 @@ namespace AudioShare.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("audio-files")]
+        [HttpGet]
         public async Task<IActionResult> GetAudioFiles()
         {
             try
@@ -45,7 +43,7 @@ namespace AudioShare.API.Controllers
             }
         }
 
-        [HttpGet("audio-files/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -65,11 +63,13 @@ namespace AudioShare.API.Controllers
             catch (FileNotFoundException e)
             {
                 _logger.LogError(e.Message);
-                return BadRequest("Audio file could not be found.");
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpPut("audio-files/update/{id}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+        [Authorize]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Update([FromBody] UpdateAudioFileDto updateAudioFileDto)
         {
             try
@@ -86,7 +86,9 @@ namespace AudioShare.API.Controllers
             }
         }
 
-        [HttpDelete("audio-files/delete/{id}")]
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+        [Authorize]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -107,7 +109,7 @@ namespace AudioShare.API.Controllers
             catch (FileNotFoundException e)
             {
                 _logger.LogError(e.Message);
-                return BadRequest("No audio file found for deleting.");
+                return BadRequest(e.Message);
             }
         }
     }

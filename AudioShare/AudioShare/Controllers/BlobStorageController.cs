@@ -12,8 +12,6 @@ using Microsoft.Identity.Web.Resource;
 
 namespace AudioShare.Controllers
 {
-    [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
-    [Authorize]
     [Route("audio-share")]
     [ApiController]
     public class BlobStorageController : ControllerBase
@@ -32,12 +30,14 @@ namespace AudioShare.Controllers
             _blobServiceClient = blobServiceClient;
         }
 
+        [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
+        [Authorize]
         [HttpPost("upload")]
-        public IActionResult Upload(IFormFile file, string title, string description)
+        public IActionResult Upload(IFormFile file, string title, string description, string user)
         {
             try
             {
-                string downloadPath = "https://localhost:5094/audio-editor/download/";
+                string downloadPath = "https://localhost:5094/audio-share/download/";
 
                 if (file == null)
                 {
@@ -58,6 +58,7 @@ namespace AudioShare.Controllers
                 audioFile.Format = fi.Extension;
                 audioFile.Title = title;
                 audioFile.Description = description;
+                audioFile.User = user;
                 audioFile.Path = downloadPath + fi;
                 _dbContext.AudioFiles.Add(audioFile);
                 _dbContext.SaveChanges();

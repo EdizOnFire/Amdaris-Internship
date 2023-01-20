@@ -2,28 +2,40 @@ import { useState } from "react";
 import * as itemService from "../../services/itemService";
 import { Button, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../../authConfig";
 
 const Upload = () => {
-    const [audioFiles, setAudioFiles] = useState("");
+    const { instance, accounts } = useMsal();
+    const [audioFile, setAudioFile] = useState();
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const handleAudioUpload = (e) => {
-        console.log(Object.values(e.target.files));
-        setAudioFiles(Object.values(e.target.files));
+        console.log(e.target.files[0]);
+        setAudioFile(e.target.files[0]);
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const title = formData.get('title');
+        const description = formData.get('description');
 
-        audioFiles.map((a) => {
-            const formData = new FormData();
-            formData.append("file", a);
-            itemService.upload(formData)
-                .then(setAudioFiles([]))
-                .catch((error) => {
-                    console.log(error);
-                });
-        });
-    };
+        const formFileData = new FormData();
+        formFileData.append("file", audioFile);
+        instance.acquireTokenSilent(
+            {
+                ...loginRequest,
+                account: accounts[0]
+            })
+            .then((response) => {
+                itemService.upload(response.accessToken, formFileData, title, description, user.username)
+                    .then(setAudioFile(""))
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+    }
 
     return (
         <section id="uploadPage">
@@ -58,8 +70,8 @@ const Upload = () => {
                         onChange={handleAudioUpload} />
                 </Button>
                 <Box id="fileName">
-                    {audioFiles.length > 0 ? (
-                        audioFiles.map((a) => <p key={a.name}>{a.name}</p>)
+                    {audioFile ? (
+                        <p>{audioFile.name}</p>
                     ) : (
                         <p>No File Chosen</p>
                     )}

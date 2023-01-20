@@ -13,16 +13,7 @@ namespace AudioShare.Infrastructure
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<AudioFile> AudioFiles { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AudioFile>()
-                .Property(x => x.Comments)
-                .HasConversion(new ValueConverter<List<string>, string>(
-                    v => JsonConvert.SerializeObject(v), // Convert to string for persistence
-                    v => JsonConvert.DeserializeObject<List<string>>(v))); // Convert to List<String> for use
-        }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
