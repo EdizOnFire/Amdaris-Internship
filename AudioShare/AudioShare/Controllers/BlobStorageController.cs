@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web.Resource;
+using System.IO;
+using System.Reflection.Metadata;
 
 namespace AudioShare.Controllers
 {
@@ -88,6 +90,14 @@ namespace AudioShare.Controllers
                 _logger.LogInformation("File loaded.");
                 return File(stream.ToArray(), contentType, blob.Name);
             }
+        }
+
+        [HttpDelete("delete/{fileName}")]
+        public IActionResult Delete(string fileName)
+        {
+            _storageService.Delete(fileName);
+            _logger.LogInformation("File deleted.");
+            return Ok("File deleted.");
         }
     }
 }

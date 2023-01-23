@@ -10,5 +10,6 @@ namespace AudioShare.Application.Abstract
     public interface IStorageService
     {
         void Upload(IFormFile formFile);
+        void Delete(string fileName);
     }
 }

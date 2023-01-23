@@ -15,6 +15,7 @@ namespace AudioShare.Application.Commands
         {
             var audioFile = new AudioFile
             {
+                Id = request.Id,
                 FileName = request.FileName,
                 Format = request.Format,
                 Title = request.Title,

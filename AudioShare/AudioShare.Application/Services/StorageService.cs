@@ -1,4 +1,5 @@
 ﻿using AudioShare.Application.Abstract;
+using AudioShare.Application.Exceptions;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,26 @@ namespace AudioShare.Application.Services
 
             using var stream = formFile.OpenReadStream();
             blobClient.Upload(stream, true);
+        }
+
+        public void Delete(string fileName)
+        {
+            try
+            {
+                var containerName = _configuration.GetSection("Storage:ContainerName").Value;
+                var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+                if (fileName == "")
+                {
+                    throw new NoFilesSelectedException();
+                }
+
+                var blobClient = containerClient.GetBlobClient(fileName);
+                blobClient.Delete();
+            }
+            catch (NoFilesSelectedException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

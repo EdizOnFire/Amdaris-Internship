@@ -7,6 +7,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Web.Resource;
+using AudioShare.Controllers;
+using Microsoft.Identity.Client.Extensions.Msal;
+using AudioShare.Application.Services;
 
 namespace AudioShare.API.Controllers
 {
@@ -70,11 +73,12 @@ namespace AudioShare.API.Controllers
         [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
         [Authorize]
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> Update([FromBody] UpdateAudioFileDto updateAudioFileDto)
+        public async Task<IActionResult> Update([FromBody] UpdateAudioFileDto updateAudioFileDto, int id)
         {
             try
             {
                 var command = _mapper.Map<UpdateAudioFile>(updateAudioFileDto);
+                command.Id = id;
                 var mappedResult = await _mediator.Send(command);
                 _logger.LogInformation($"Audio file updated successfully.");
                 return Ok(mappedResult);
