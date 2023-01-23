@@ -2,5 +2,7 @@ import Home from "./Home/Home";
 import Upload from "./Upload/Upload";
 import NotFound from "./NotFound/NotFound";
 import Browse from "./Browse/Browse";
+import Details from "./Details/Details";
+import Edit from "./Edit/Edit";
 
-export { Home, Upload, Browse, NotFound }
+export { Home, Upload, Browse, NotFound, Details, Edit }

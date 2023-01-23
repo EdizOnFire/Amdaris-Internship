@@ -3,31 +3,35 @@ import { AppBar, Box, Toolbar, Container, Button } from '@mui/material';
 import { MusicNote } from '@mui/icons-material';
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authConfig";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 export default function Navbar() {
     const isAuthenticated = useIsAuthenticated();
     const { instance } = useMsal();
+    const { userLogin, userLogout } = useContext(AuthContext);
 
     const handleLogin = () => {
-        instance.loginPopup(loginRequest)
-            .then(response => {
-                localStorage.setItem("user", JSON.stringify(response.account));
-            })
-            .catch(e => {
-                console.log(e);
-            });
+        try {
+            instance.loginPopup(loginRequest)
+                .then(response => {
+                    console.log(response.account);
+                    userLogin(response.account);
+                })
+        } catch (error) {
+            return error;
+        }
     }
 
     const handleLogout = () => {
-        localStorage.clear();
-        instance.logoutPopup({
-            postLogoutRedirectUri: "/",
-            mainWindowRedirectUri: "/"
-        })
-            .then(localStorage.clear())
-            .catch(e => {
-                console.log(e);
-            });
+        try {
+            instance.logoutPopup({
+                postLogoutRedirectUri: "/",
+                mainWindowRedirectUri: "/"
+            }).then(userLogout())
+        } catch (error) {
+            return error;
+        }
     }
 
     return (
