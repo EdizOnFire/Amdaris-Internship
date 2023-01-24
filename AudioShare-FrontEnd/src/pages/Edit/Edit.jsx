@@ -44,28 +44,14 @@ export default function Edit() {
 
     return (
         <Box component="article" align="center" className="audioFile">
-            <Box component="form"
-                sx={{
-                    color: "#4c00c5",
-                    mx: 90,
-                    border: 1,
-                    textAlign: "center",
-                }}
-                onSubmit={onSubmit}>
-                <Box component="input" name="title" className="itemTitle" defaultValue={audioFile?.title}>
-                </Box>
+            <Box component="form" sx={{ m: 3 }} onSubmit={onSubmit}>
+                <Box className="itemName">Title: <Box name="title" component="input" defaultValue={audioFile?.title} /></Box>
                 <Box className="itemName">File name: {audioFile?.fileName}</Box>
                 <Box className="itemFormat">Format: {audioFile?.format}</Box>
-                <Box component="input"
-                    name="description"
-                    className="itemDescription"
-                    defaultValue={audioFile?.description}>
-                </Box>
-                <Box>
-                    <Button sx={{ m: 2 }} type="submit">
-                        Edit
-                    </Button>
-                </Box>
+                <Box className="itemName">Description: <Box name="description" component="input" defaultValue={audioFile?.description} /></Box>
+                <Button sx={{ m: 2 }} type="submit">
+                    Edit
+                </Button>
             </Box>
         </Box>
     );

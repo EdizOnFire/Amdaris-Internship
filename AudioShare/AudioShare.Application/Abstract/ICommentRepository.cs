@@ -4,7 +4,7 @@ namespace AudioShare.Application.Abstract
 {
     public interface ICommentRepository
     {
-        Task<Comment> GetByOwner(string Owner);
+        Task<Comment> GetById(int id);
 
         Task Add(Comment comment);
 

@@ -77,3 +77,42 @@ export const remove = (accessToken, id, fileName) => {
         return e;
     }
 };
+
+export const getAllComments = () => {
+    try {
+        return fetch(baseUrl + "/comments")
+            .then(response => response.json())
+    } catch (error) {
+        return error;
+    }
+};
+
+export const addComment = (accessToken, itemData) => {
+    const headers = new Headers();
+    const bearer = `Bearer ${accessToken}`;
+    headers.append("Authorization", bearer);
+    headers.append("Content-Type", "application/json")
+
+    const options = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(itemData)
+    }
+
+    return fetch(baseUrl + "/comments/create", options)
+        .catch(error => { return error; });
+};
+
+export const removeComment = (accessToken, currentUser, id) => {
+    const headers = new Headers();
+    const bearer = `Bearer ${accessToken}`;
+    headers.append("Authorization", bearer);
+
+    const options = {
+        method: 'DELETE',
+        headers: headers
+    }
+
+    return fetch(`${baseUrl}/comments/delete/${id}?currentUser=${currentUser}`, options)
+        .catch(error => { return error; });
+};

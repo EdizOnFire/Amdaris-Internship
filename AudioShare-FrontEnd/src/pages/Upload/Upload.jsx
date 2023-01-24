@@ -8,8 +8,8 @@ import { useMsal } from "@azure/msal-react";
 import * as itemService from "../../services/itemService";
 
 export default function Upload() {
-    const { instance, accounts } = useMsal();
     const [audioFile, setAudioFile] = useState();
+    const { instance, accounts } = useMsal();
     const { itemAdd } = useContext(AudioFileContext);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -26,6 +26,7 @@ export default function Upload() {
 
         const formFileData = new FormData();
         formFileData.append("file", audioFile);
+        setAudioFile("Uploading...")
 
         try {
             instance.acquireTokenSilent({
@@ -39,7 +40,6 @@ export default function Upload() {
                     description,
                     user.username)
                     .then(() => {
-                        setAudioFile("")
                         itemAdd(audioFile)
                         navigate("/")
                     })
@@ -51,7 +51,6 @@ export default function Upload() {
 
     return (
         <section id="uploadPage">
-            <br />
             <Box sx={{ mx: 90 }} className="section-title">
                 <h4>Upload Your Audio File </h4>
             </Box>
@@ -60,8 +59,10 @@ export default function Upload() {
                 sx={{
                     color: "#4c00c5",
                     mx: 90,
-                    border: 1,
+                    border: 2,
                     textAlign: "center",
+                    backgroundColor:"black",
+                    borderRadius:4
                 }}
                 onSubmit={onSubmit}
             >
@@ -109,7 +110,7 @@ export default function Upload() {
                     autoFocus>
                 </Box>
                 <Box>
-                    <Button sx={{ m: 2 }} type="submit">
+                    <Button variant="contained" sx={{ m: 2 }} type="submit">
                         Upload
                     </Button>
                 </Box>

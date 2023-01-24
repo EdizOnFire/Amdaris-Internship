@@ -8,7 +8,7 @@ export default function Layout() {
     return (
         <>
             <Navbar />
-            <main>
+            <main align="center">
                 {navigation.state === "loading" ? <p align="center">Loading...</p> : <Outlet />}
             </main>
             <Footer />

@@ -16,7 +16,7 @@ namespace AudioShare.Application.Commands
 
         public async Task<Comment> Handle(DeleteComment request, CancellationToken cancellationToken)
         {
-            var comment = await _unitOfWork.CommentRepository.GetByOwner(request.Owner);
+            var comment = await _unitOfWork.CommentRepository.GetById(request.Id);
 
             _unitOfWork.CommentRepository.Remove(comment);
 

@@ -45,12 +45,12 @@ namespace AudioShare.Controllers
             }
         }
 
-        [HttpGet("{owner}")]
-        public async Task<IActionResult> GetByOwner(string owner)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var query = new GetCommentByOwner { Owner = owner };
+                var query = new GetCommentById { Id = id };
                 var result = await _mediator.Send(query);
 
                 if (result == null)
@@ -71,7 +71,7 @@ namespace AudioShare.Controllers
 
         [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
         [Authorize]
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateComment([FromBody] GetCommentDto comment)
         {
             if (!ModelState.IsValid)
@@ -81,22 +81,23 @@ namespace AudioShare.Controllers
             {
                 Owner = comment.Owner,
                 Content = comment.Content,
+                AudioFileId = comment.AudioFileId,
             };
 
             var result = await _mediator.Send(command);
             var mappedResult = _mapper.Map<GetCommentDto>(result);
 
-            return CreatedAtAction(nameof(GetByOwner), new { owner = mappedResult.Owner }, mappedResult);
+            return CreatedAtAction(nameof(GetById), new { id = mappedResult.Id }, mappedResult);
         }
 
         [RequiredScope(RequiredScopesConfigurationKey = "AzureAd:Scopes")]
         [Authorize]
-        [HttpDelete("delete/{owner}")]
-        public async Task<IActionResult> Delete(string owner, string currentUser)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(string currentUser, int id)
         {
             try
             {
-                var query = new GetCommentByOwner { Owner = owner };
+                var query = new GetCommentById { Id = id };
                 var result = await _mediator.Send(query);
 
                 if (result == null)
@@ -108,7 +109,7 @@ namespace AudioShare.Controllers
                     throw new NotOwnerException();
                 }
 
-                var command = new DeleteComment { Owner = owner };
+                var command = new DeleteComment { Id = id };
                 var actualResult = await _mediator.Send(command);
                 _logger.LogInformation("Comment deleted successfully.");
                 return Ok("Comment deleted successfully.");

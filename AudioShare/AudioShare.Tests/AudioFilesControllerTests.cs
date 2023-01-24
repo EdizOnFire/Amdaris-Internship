@@ -79,13 +79,14 @@ namespace AudioShare.Tests.Controller
         {
             var audioFile = new AudioFile { FileName = "Item 1" };
             var audioFileDto = new UpdateAudioFileDto { FileName = "Item 1" };
+            int id = 1;
 
             mediator.Setup(x => x.Send(It.IsAny<UpdateAudioFile>(), default)).ReturnsAsync(audioFile);
             mapper.Setup(m => m.Map<UpdateAudioFileDto>(audioFileDto)).Returns(new UpdateAudioFileDto());
 
             var controller = new AudioFilesController(mapper.Object, mediator.Object, logger.Object);
 
-            var result = await controller.Update(new UpdateAudioFileDto());
+            var result = await controller.Update(new UpdateAudioFileDto(),  id);
 
             result.Should().BeOfType(typeof(OkObjectResult));
         }

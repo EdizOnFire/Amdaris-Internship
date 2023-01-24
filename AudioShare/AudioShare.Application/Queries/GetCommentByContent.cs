@@ -4,8 +4,8 @@ using System.Numerics;
 
 namespace AudioShare.Application.Queries
 {
-    public class GetCommentByOwner : IRequest<Comment>
+    public class GetCommentById : IRequest<Comment>
     {
-        public string Owner { get; set; } = null!;
+        public int Id { get; set; }
     }
 }

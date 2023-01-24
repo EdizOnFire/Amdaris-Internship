@@ -27,9 +27,10 @@ namespace AudioShare.Tests
             audioFile.Setup(f => f.FileName).Returns("audio.mp3");
             string title = "title";
             string description = "description";
+            string user = "email@email.com";
 
             var controller = new BlobStorageController(blobServiceClient, hostingEnvironment.Object, storageService.Object, dbContext, logger.Object);
-            var result = controller.Upload(audioFile.Object, title, description);
+            var result = controller.Upload(audioFile.Object, title, description, user);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             var returnValue = Assert.IsType<string>(okResult.Value);
@@ -43,9 +44,10 @@ namespace AudioShare.Tests
             audioFile.Setup(f => f.FileName).Returns("file");
             string title = "title";
             string description = "description";
+            string user = "email@email.com";
 
             var controller = new BlobStorageController(blobServiceClient, hostingEnvironment.Object, storageService.Object, dbContext, logger.Object);
-            var result = controller.Upload(audioFile.Object, title, description);
+            var result = controller.Upload(audioFile.Object, title, description, user);
 
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             var returnValue = Assert.IsType<string>(badRequest.Value);

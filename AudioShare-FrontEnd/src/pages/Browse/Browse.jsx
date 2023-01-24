@@ -1,4 +1,4 @@
-import AudioFileItem from "./AudioFileItem/AudioFileItem"
+import AudioFileItem from "../../components/AudioFileItem/AudioFileItem"
 import { useEffect, useState } from "react";
 import * as itemService from "../../services/itemService";
 
@@ -17,9 +17,8 @@ export default function Browse() {
 
     return (
         <section id="yourAudioFiles">
-            <br />
             <div className="section-title">
-                <h4>All Audio Files</h4>
+                <h4>All of the threads</h4>
             </div>
             <div className="container" align="center">
                 {items.length !== 0 ?

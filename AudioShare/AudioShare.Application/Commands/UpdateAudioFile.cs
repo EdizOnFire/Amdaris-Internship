@@ -13,6 +13,5 @@ namespace AudioShare.Application.Commands
         public string Description { get; set; } = null!;
         public string Path { get; set; } = null!;
         public string User { get; set; } = null!;
-        public List<Comment> Comments { get; set; } = new();
     }
 }

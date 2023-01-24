@@ -18,9 +18,9 @@ namespace AudioShare.Infrastructure.Repository
             return await _context.Comments.ToListAsync();
         }
 
-        public async Task<Comment> GetByOwner(string owner)
+        public async Task<Comment> GetById(int id)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(a => a.Owner == owner);
+            var comment = await _context.Comments.FirstOrDefaultAsync(a => a.Id == id);
 
             return comment;
         }

@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Box, Button } from "@mui/material";
-import { AuthContext } from "../../contexts/AuthContext";
-import { useMsal } from "@azure/msal-react";
+import { useNavigate, useParams } from "react-router-dom";
 import { loginRequest } from "../../authConfig";
+import { AuthContext } from "../../contexts/AuthContext";
+import { Box, Button } from "@mui/material";
+import { useMsal } from "@azure/msal-react";
+import Comments from "../../components/Comments/Comments";
 import * as itemService from "../../services/itemService";
 
 export default function Details() {
@@ -11,17 +12,19 @@ export default function Details() {
     const [downloadLink, setDownloadLink] = useState("");
     const [item, setItem] = useState();
     const { instance, accounts } = useMsal();
-    const navigate = useNavigate();
-
     const { user } = useContext(AuthContext);
     const { id } = useParams();
+    const navigate = useNavigate();
 
-    const isOwner = item?.user === user.username;
+    const isOwner = item?.user === user?.username;
 
     useEffect(() => {
         itemService
-            .getOne(id).then((result) => setItem(result))
-            .catch((e) => { return e; });
+            .getOne(id)
+            .then((result) => setItem(result))
+            .catch((e) => {
+                return e;
+            });
     }, []);
 
     useEffect(() => {
@@ -47,13 +50,15 @@ export default function Details() {
 
         try {
             if (confirmation) {
-                instance.acquireTokenSilent({
-                    ...loginRequest,
-                    account: accounts[0],
-                }).then((response) => {
-                    itemService.remove(response.accessToken, id, item.fileName)
-                    navigate("/");
-                })
+                instance
+                    .acquireTokenSilent({
+                        ...loginRequest,
+                        account: accounts[0],
+                    })
+                    .then((response) => {
+                        itemService.remove(response.accessToken, id, item.fileName);
+                        navigate("/");
+                    });
             }
         } catch (error) {
             return error;
@@ -61,32 +66,55 @@ export default function Details() {
     };
 
     return (
-        <Box component="article" align="center" className="audioFile">
+        <Box
+            component="article"
+            display="inline-block"
+            sx={{
+                backgroundColor: "black",
+                width: 1000,
+                color: "#4c00c5",
+                border: 2,
+                m: 3,
+                borderRadius: 4
+            }}
+            align="center"
+            className="audioFile">
             <Box component="h1" sx={{ color: "white" }} className="itemTitle">
                 Title: {item?.title}
             </Box>
             <Box className="itemName">File name: {item?.fileName}</Box>
             <Box className="itemFormat">Format: {item?.format}</Box>
             <Box>
-                <Button href={downloadLink} download={item?.fileName}>
+                <Button
+                    variant="outlined"
+                    sx={{ m: 3 }}
+                    href={downloadLink}
+                    download={item?.fileName}
+                >
                     {loadingState}
                 </Button>
             </Box>
             <Box>
-                <audio controls src={downloadLink} />
+                <Box component="audio" controls src={downloadLink} />
             </Box>
             {isOwner && (
                 <Box component="div" className="actionBtn">
-                    <Button><Link to={`/browse/${id}/edit`}>Edit</Link></Button>
-                    <Button onClick={itemDeleteHandler}>Delete</Button>
+                    <Button href={`/browse/${id}/edit`} sx={{ m: 3 }} variant="contained">
+                        Edit
+                    </Button>
+                    <Button sx={{ m: 3 }} variant="contained" onClick={itemDeleteHandler}>
+                        Delete
+                    </Button>
                 </Box>
             )}
             <Box
                 component="h1"
                 sx={{ color: "white", m: 2 }}
-                className="itemDescription">
+                className="itemDescription"
+            >
                 Description: {item?.description}
             </Box>
+            <Comments />
         </Box>
     );
 }

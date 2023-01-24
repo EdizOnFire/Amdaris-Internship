@@ -8,8 +8,8 @@ import { useContext } from "react";
 
 export default function Navbar() {
     const isAuthenticated = useIsAuthenticated();
-    const { instance } = useMsal();
     const { userLogin, userLogout } = useContext(AuthContext);
+    const { instance } = useMsal();
 
     const handleLogin = () => {
         try {

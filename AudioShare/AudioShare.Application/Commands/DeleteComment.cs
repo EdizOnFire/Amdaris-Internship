@@ -4,6 +4,6 @@ namespace AudioShare.Application.Commands
 {
     public class DeleteComment : IRequest<Comment>
     {
-        public string Owner { get; set; } = null!;
+        public int Id { get; set; }
     }
 }

@@ -8,7 +8,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export default function Footer() {
     return (
-        <footer>
+        <Box component="footer" sx={{ backgroundColor: "#4c00c5" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: "white" }}>
@@ -20,6 +20,6 @@ export default function Footer() {
                     <RedditIcon sx={{ color: "white", mx: 1 }} />
                 </Toolbar>
             </Container>
-        </footer>
+        </Box>
     );
 };

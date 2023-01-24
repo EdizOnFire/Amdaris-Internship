@@ -36,32 +36,22 @@ namespace AudioShare.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AudioFileId = table.Column<int>(type: "int", nullable: true)
+                    AudioFileId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_AudioFiles_AudioFileId",
-                        column: x => x.AudioFileId,
-                        principalTable: "AudioFiles",
-                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_AudioFileId",
-                table: "Comments",
-                column: "AudioFileId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "AudioFiles");
 
             migrationBuilder.DropTable(
-                name: "AudioFiles");
+                name: "Comments");
         }
     }
 }

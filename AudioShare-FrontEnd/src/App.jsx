@@ -1,9 +1,9 @@
+import { Home, Upload, Browse, NotFound, Details, Edit } from "./pages";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AudioFileProvider } from "./contexts/AudioFileContext";
-import { Home, Upload, Browse, NotFound, Details, Edit } from "./pages";
+import { AuthProvider } from "./contexts/AuthContext";
 import { Theme } from "./services/theme";
 import Layout from "./components/Layout/Layout";
-import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   const router = createBrowserRouter([

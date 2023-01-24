@@ -23,7 +23,8 @@ namespace AudioShare.Application.Commands
             var comment = new Comment
             {
                 Owner = request.Owner,
-                Content = request.Content
+                Content = request.Content,
+                AudioFileId = request.AudioFileId,
             };
 
             await _unitOfWork.CommentRepository.Add(comment);
