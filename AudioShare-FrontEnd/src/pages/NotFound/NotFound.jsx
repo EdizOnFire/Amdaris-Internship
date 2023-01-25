@@ -10,7 +10,7 @@ const NotFound = () => {
             m: 3,
             minWidth: 400,
             borderRadius: 4,
-            borderColor: "#4c00c5",
+            borderColor: "#8d46ff",
         }}>
             <Box component="h2">Error 404</Box>
             <Box component="p">The page cannot be found.</Box>

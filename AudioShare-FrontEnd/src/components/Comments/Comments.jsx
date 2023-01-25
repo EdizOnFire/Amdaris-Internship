@@ -5,7 +5,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { Box, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import * as itemService from "../../services/itemService";
-import Comment from "../Comment/Comment";
+import CommentItem from "../CommentItem/CommentItem";
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 export default function Comments() {
     const isAuthenticated = useIsAuthenticated();
@@ -19,14 +20,13 @@ export default function Comments() {
         e.preventDefault();
 
         const comment = { owner: user.username, content: commentText, audioFileId: id }
-
         try {
             instance.acquireTokenSilent({
                 ...loginRequest,
                 account: accounts[0],
             }).then((response) => {
                 itemService.addComment(response.accessToken, comment)
-                setCommentText("")
+                setTimeout(() => { setCommentText("") }, 200)
             });
         } catch (error) {
             return error;
@@ -41,12 +41,12 @@ export default function Comments() {
     }, [commentText])
 
     return (
-        <Box className="comments" align='center'>
+        <Box component="section" sx={{ mt: 16 }} align='center'>
             <Box component="h2">Comments:</Box>
             <Box sx={{ color: "white" }}>
                 {comments?.length > 0 ? (
                     comments.map((x) => (
-                        <Comment key={x.id} item={x} />
+                        <CommentItem key={x.id} item={x} />
                     ))
                 ) : (
                     <p className="no-comment">No comments.</p>
@@ -61,7 +61,7 @@ export default function Comments() {
                         value={commentText}
                         onChange={e => setCommentText(e.target.value)} />
                     <Box>
-                        <Button sx={{ m: 3 }} variant="contained" type="submit">Add Comment</Button>
+                        <Button sx={{ m: 3 }} variant="contained" type="submit"><AddCommentIcon sx={{ mr: 1 }} />Comment</Button>
                     </Box>
                 </Box>
             )}

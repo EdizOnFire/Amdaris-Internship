@@ -7,9 +7,9 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 
 export default function Navbar() {
-    const isAuthenticated = useIsAuthenticated();
-    const { userLogin, userLogout } = useContext(AuthContext);
+    const { userLogin, userLogout, user } = useContext(AuthContext);
     const { instance } = useMsal();
+    const isAuthenticated = useIsAuthenticated();
 
     const handleLogin = () => {
         try {
@@ -75,13 +75,10 @@ export default function Navbar() {
                                     Login
                                 </Button>
                             </Box>
-                            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                                    Register
-                                </Button>
-                            </Box> */}
                         </>
                     }
+
+                    {user.name && (`Hello ${user.name}!`)}
                 </Toolbar>
             </Container>
         </AppBar>

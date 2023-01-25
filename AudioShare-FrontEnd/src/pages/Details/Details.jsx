@@ -6,6 +6,9 @@ import { Box, Button } from "@mui/material";
 import { useMsal } from "@azure/msal-react";
 import Comments from "../../components/Comments/Comments";
 import * as itemService from "../../services/itemService";
+import DownloadIcon from '@mui/icons-material/Download';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function Details() {
     const [loadingState, setLoadingState] = useState("Retrieving...");
@@ -56,8 +59,8 @@ export default function Details() {
                         account: accounts[0],
                     })
                     .then((response) => {
-                        itemService.remove(response.accessToken, id, item.fileName);
-                        navigate("/");
+                        itemService.remove(response.accessToken, id, item.fileName)
+                        setTimeout(() => { navigate('/') }, 1500)
                     });
             }
         } catch (error) {
@@ -72,7 +75,7 @@ export default function Details() {
             sx={{
                 backgroundColor: "black",
                 width: 1000,
-                color: "#4c00c5",
+                color: "#8d46ff",
                 border: 2,
                 m: 3,
                 borderRadius: 4
@@ -80,10 +83,9 @@ export default function Details() {
             align="center"
             className="audioFile">
             <Box component="h1" sx={{ color: "white" }} className="itemTitle">
-                Title: {item?.title}
+                {item?.title}
             </Box>
             <Box className="itemName">File name: {item?.fileName}</Box>
-            <Box className="itemFormat">Format: {item?.format}</Box>
             <Box>
                 <Button
                     variant="outlined"
@@ -91,6 +93,7 @@ export default function Details() {
                     href={downloadLink}
                     download={item?.fileName}
                 >
+                    {downloadLink && <DownloadIcon sx={{ mr: 1 }} />}
                     {loadingState}
                 </Button>
             </Box>
@@ -100,20 +103,23 @@ export default function Details() {
             {isOwner && (
                 <Box component="div" className="actionBtn">
                     <Button href={`/browse/${id}/edit`} sx={{ m: 3 }} variant="contained">
+                        <EditIcon sx={{ mr: 1 }} />
                         Edit
                     </Button>
                     <Button sx={{ m: 3 }} variant="contained" onClick={itemDeleteHandler}>
+                        <DeleteForeverIcon sx={{ mr: 1 }} />
                         Delete
                     </Button>
                 </Box>
             )}
             <Box
                 component="h1"
-                sx={{ color: "white", m: 2 }}
+                sx={{ m: 2 }}
                 className="itemDescription"
             >
-                Description: {item?.description}
+                Description:
             </Box>
+            <Box sx={{ color: "white" }}>{item?.description}</Box>
             <Comments />
         </Box>
     );

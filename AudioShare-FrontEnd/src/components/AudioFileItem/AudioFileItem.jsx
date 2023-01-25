@@ -2,6 +2,19 @@ import { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import * as itemService from "../../services/itemService";
+import { styled } from "@mui/material/styles"
+import Card from "@mui/material/Card"
+import CardHeader from "@mui/material/CardHeader"
+import CardMedia from "@mui/material/CardMedia"
+import CardContent from "@mui/material/CardContent"
+import CardActions from "@mui/material/CardActions"
+import Avatar from "@mui/material/Avatar"
+import IconButton from "@mui/material/IconButton"
+import Typography from "@mui/material/Typography"
+import { red } from "@mui/material/colors"
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import ShareIcon from "@mui/icons-material/Share"
+import CommentIcon from '@mui/icons-material/Comment';
 
 export default function AudioFileItem({ item }) {
     const [loadingState, setLoadingState] = useState("Retrieving...");
@@ -24,27 +37,32 @@ export default function AudioFileItem({ item }) {
     }, [item]);
 
     return (
-        <Box component="article" display="inline-block" sx={{
-            backgroundColor: "black",
-            width: 300,
-            color: "#4c00c5",
-            border: 2,
-            m: 3,
-            minWidth: 400,
-            borderRadius: 4
-        }}>
-            <Box sx={{ color: "white", my: 1 }}>
-                <Box component="small" >By: {item.user}</Box>
-            </Box>
-            <Box component="h1" sx={{ color: "white", m: 3 }}>{item.title}</Box>
-            <Box sx={{ color: "white", m: 2 }}>{item.description}</Box>
-            {loadingState}
-            <Box sx={{ m: 2 }}>
+        <Card sx={{ maxWidth: 400, m: 6, display: "inline-block", backgroundColor: "#8d46ff", borderRadius: 4, color: "black" }}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{ color: "black" }}>
+                        {item?.user[0].toUpperCase()}
+                    </Avatar>
+                }
+                title={`By: ${item?.user}`}
+            />
+            <Box>{item.title}</Box>
+            <Box sx={{ m: 3 }} >
                 <Box component="audio" controls src={downloadLink} />
             </Box>
-            <Button variant="outlined" sx={{ m: 2 }}>
-                <Link to={`/browse/${item.id}`}>Comments</Link>
-            </Button>
-        </Box>
+            <Box>{loadingState}</Box>
+            <CardContent>
+                <Typography variant="body2" >
+                    {`"${item.description}"`}
+                </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+                <Link to={`/browse/${item.id}`} >
+                    <IconButton>
+                        <CommentIcon sx={{ mx: 1 }} />
+                    </IconButton>
+                </Link>
+            </CardActions>
+        </Card>
     );
 };

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Outlet, useNavigation } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
@@ -8,9 +9,9 @@ export default function Layout() {
     return (
         <>
             <Navbar />
-            <main align="center">
+            <Box component="main" sx={{ display: 'inline-block' }} align="center">
                 {navigation.state === "loading" ? <p align="center">Loading...</p> : <Outlet />}
-            </main>
+            </Box >
             <Footer />
         </>
     )

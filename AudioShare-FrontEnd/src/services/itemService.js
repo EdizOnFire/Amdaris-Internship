@@ -58,7 +58,7 @@ export const download = (itemPath) => {
     }
 };
 
-export const remove = (accessToken, id, fileName) => {
+export const remove = async (accessToken, id, fileName) => {
     try {
         const headers = new Headers();
         const bearer = `Bearer ${accessToken}`;
@@ -69,10 +69,9 @@ export const remove = (accessToken, id, fileName) => {
             headers: headers
         }
 
-        fetch(baseUrl + "/audio-files/delete/" + id, options)
-        fetch(baseUrl + "/delete/" + fileName, options)
-
-        return;
+        await fetch(baseUrl + "/audio-files/delete/" + id, options)
+        await fetch(baseUrl + "/delete/" + fileName, options)
+        return
     } catch (e) {
         return e;
     }

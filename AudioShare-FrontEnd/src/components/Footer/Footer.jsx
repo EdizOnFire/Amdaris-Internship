@@ -8,11 +8,11 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 export default function Footer() {
     return (
-        <Box component="footer" sx={{ backgroundColor: "#4c00c5" }}>
+        <Box component="footer" sx={{ backgroundColor: "#8d46ff" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: "white" }}>
-                        &copy;AudioShare
+                        &copy;Audio Share
                     </Box>
                     <FacebookIcon sx={{ color: "white", mx: 1 }} />
                     <InstagramIcon sx={{ color: "white", mx: 1 }} />
