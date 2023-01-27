@@ -1,4 +1,4 @@
-import { Home, Upload, Browse, NotFound, Details, Edit } from "./pages";
+import { Home, Upload, Browse, NotFound, Details, Edit,Profile } from "./pages";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AudioFileProvider } from "./contexts/AudioFileContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -38,6 +38,11 @@ export default function App() {
           errorElement: <NotFound />,
         },
         {
+          path: "profile",
+          element: <Profile />,
+          errorElement: <NotFound />,
+        },
+        {
           path: "*",
           element: <NotFound />,
         },
@@ -47,11 +52,11 @@ export default function App() {
 
   return (
     <Theme>
-      <AudioFileProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <AudioFileProvider>
           <RouterProvider router={router} />
-        </AuthProvider>
-      </AudioFileProvider>
+        </AudioFileProvider>
+      </AuthProvider>
     </Theme>
   );
 }

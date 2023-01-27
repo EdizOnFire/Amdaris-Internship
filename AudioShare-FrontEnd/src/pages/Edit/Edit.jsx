@@ -106,7 +106,6 @@ export default function Edit() {
                                 maxWidth: 450,
                                 maxHeight: 350,
                             }}
-                            id="description"
                             label="Description"
                             placeholder="What you need feedback for"
                             name="description"

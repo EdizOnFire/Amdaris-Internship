@@ -30,7 +30,7 @@ export default function Browse() {
             return items;
         }
 
-        return items.filter((item) => item.title.toLowerCase().includes(query.toLowerCase()));;
+        return items.filter((item) => item.title.toLowerCase().includes(query.toLowerCase()));
     };
 
     const filteredItems = getFilteredItems(query, items);

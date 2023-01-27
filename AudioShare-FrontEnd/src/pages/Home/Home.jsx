@@ -1,4 +1,4 @@
-import { Box, createTheme, Grid, ThemeProvider } from "@mui/material";
+import { Box, createTheme, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Container } from "@mui/system";
 import MainFeaturedPost from "../../components/MainFeaturedPost/MainFeaturedPost";
@@ -18,8 +18,7 @@ export default function Home() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        itemService
-            .getAll()
+        itemService.getAll()
             .then((result) => {
                 setItems(result);
                 setLoadingState("")
@@ -47,10 +46,13 @@ export default function Home() {
                         </Box>
                     }
                     <Box>
+                        {items.length > 0 &&
+                            <FeaturedPost key={items[0].title} item={items[0]} />
+                        }
+                        {items.length > 1 &&
+                            <FeaturedPost key={items[1].title} item={items[1]} />
+                        }
                     </Box>
-                    {items.map((post) => (
-                        <FeaturedPost key={post.title} item={post} />
-                    ))}
                 </Box>
             </Container>
         </ThemeProvider>

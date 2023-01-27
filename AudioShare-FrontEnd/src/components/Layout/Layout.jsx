@@ -10,7 +10,7 @@ export default function Layout() {
         <>
             <Navbar />
             <Box component="main" sx={{ display: 'inline-block' }} align="center">
-                {navigation.state === "loading" ? <p align="center">Loading...</p> : <Outlet />}
+                {navigation.state === "loading" ? <Box >Loading...</Box> : <Outlet />}
             </Box >
             <Footer />
         </>

@@ -29,7 +29,7 @@ export default function CommentItem({ item }) {
 
     return (
         <Box>
-            <Box sx={{ m: 2 }} className="comment">
+            <Box sx={{ m: 2 }} >
                 {item.owner}: {item.content}
                 {isOwner &&
                     <Button sx={{ mx: 2 }} variant="outlined" onClick={deleteHandler}><DeleteOutlineIcon />Delete</Button>

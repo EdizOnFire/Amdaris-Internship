@@ -4,9 +4,9 @@ import { loginRequest } from "../../authConfig";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Box, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
-import * as itemService from "../../services/itemService";
 import CommentItem from "../CommentItem/CommentItem";
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import * as itemService from "../../services/itemService";
 
 export default function Comments() {
     const [commentText, setCommentText] = useState("");
@@ -44,13 +44,13 @@ export default function Comments() {
         <Box component="section" sx={{ px: 2, mt: 4, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}
             align='center'>
             <Box component="h2" sx={{ color: "#8d46ff" }}>Comments:</Box>
-            <Box sx={{ mt: 3 }}>
+            <Box sx={{ my: 3 }}>
                 {comments?.length > 0 ? (
                     comments.map((x) => (
                         <CommentItem key={x.id} item={x} />
                     ))
                 ) : (
-                    <p className="no-comment">No comments.</p>
+                    <Box>No comments.</Box>
                 )}
             </Box>
             {isAuthenticated && (

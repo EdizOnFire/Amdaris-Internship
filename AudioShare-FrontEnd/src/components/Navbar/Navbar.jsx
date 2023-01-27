@@ -1,22 +1,21 @@
 import { AppBar, Box, Toolbar, Container, Button } from "@mui/material";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { loginRequest } from "../../authConfig";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import { MusicNote } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
-    const { userLogin, userLogout, user } = useContext(AuthContext);
+    const { userLogin, userLogout } = useContext(AuthContext);
     const { instance } = useMsal();
     const isAuthenticated = useIsAuthenticated();
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         try {
-            instance.loginPopup(loginRequest).then((response) => {
-                console.log(response.account);
-                userLogin(response.account);
-            });
+            instance.loginPopup(loginRequest)
+                .then((response) => userLogin(response.account));
         } catch (error) {
             return error;
         }
@@ -24,12 +23,8 @@ export default function Navbar() {
 
     const handleLogout = () => {
         try {
-            instance
-                .logoutPopup({
-                    postLogoutRedirectUri: "/",
-                    mainWindowRedirectUri: "/",
-                })
-                .then(userLogout());
+            instance.logoutPopup()
+                .then(userLogout(), navigate("/"));
         } catch (error) {
             return error;
         }
@@ -58,6 +53,13 @@ export default function Navbar() {
                     </NavLink>
                     {isAuthenticated ? (
                         <>
+                            <NavLink to="/profile">
+                                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                                    <Button sx={{ my: 2, color: "white", display: "block" }}>
+                                        Profile
+                                    </Button>
+                                </Box>
+                            </NavLink>
                             <NavLink to="/upload">
                                 <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                                     <Button sx={{ my: 2, color: "white", display: "block" }}>
@@ -75,18 +77,15 @@ export default function Navbar() {
                             </Box>
                         </>
                     ) : (
-                        <>
-                            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                                <Button
-                                    onClick={handleLogin}
-                                    sx={{ my: 2, color: "white", display: "block" }}
-                                >
-                                    Login
-                                </Button>
-                            </Box>
-                        </>
+                        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                            <Button
+                                onClick={handleLogin}
+                                sx={{ my: 2, color: "white", display: "block" }}
+                            >
+                                Login
+                            </Button>
+                        </Box>
                     )}
-                    {user.name && `Hello ${user.name.split(" ")[0]}!`}
                 </Toolbar>
             </Container>
         </AppBar>

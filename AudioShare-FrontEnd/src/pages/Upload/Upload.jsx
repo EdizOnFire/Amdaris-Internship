@@ -91,8 +91,8 @@ export default function Upload() {
                         accept="audio/*"
                         onChange={handleAudioUpload} />
                 </Button>
-                <Box sx={{ mb: 4, mt: 2 }} id="fileName">
-                    {audioFile ? <p>{audioFile.name}</p> : <p>No File Chosen</p>}
+                <Box sx={{ mb: 4, mt: 2 }}>
+                    {audioFile ? <Box>{audioFile.name}</Box> : <Box>No File Chosen</Box>}
                 </Box>
                 <Box
                     component="textarea"
@@ -113,7 +113,6 @@ export default function Upload() {
                         maxWidth: 450,
                         maxHeight: 350,
                     }}
-                    id="description"
                     label="Description"
                     placeholder="What you need feedback for"
                     name="description"

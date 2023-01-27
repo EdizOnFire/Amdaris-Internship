@@ -4,5 +4,6 @@ import NotFound from "./NotFound/NotFound";
 import Browse from "./Browse/Browse";
 import Details from "./Details/Details";
 import Edit from "./Edit/Edit";
+import Profile from "./Profile/Profile";
 
-export { Home, Upload, Browse, NotFound, Details, Edit };
+export { Home, Upload, Browse, NotFound, Details, Edit, Profile };
