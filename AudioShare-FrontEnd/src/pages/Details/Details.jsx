@@ -86,13 +86,13 @@ export default function Details() {
 
     return (
         <Box
-        component="section"
-        align="center"
+            component="section"
+            align="center"
             sx={{ backgroundColor: "black", borderRadius: 6 }}
         >
             <Box >
                 <Box sx={{ px: 2, mt: 4, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}>
-                    <Box sx={{ color: "#8d46ff", mt: 2 }}>By: {user.username}</Box>
+                    <Box sx={{ color: "#8d46ff", mt: 2 }}>By: {item?.user}</Box>
                     <Box component="h1" sx={{ px: 4 }}>
                         {item?.title}
                     </Box>

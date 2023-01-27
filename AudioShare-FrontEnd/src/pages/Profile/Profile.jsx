@@ -21,22 +21,22 @@ export default function Profile() {
             align="center"
             sx={{ backgroundColor: "black", borderRadius: 6 }}
         >
-            <Box component="h1" sx={{ mt: 4 }}>Profile</Box>
+            <Box component="h1" sx={{ borderRadius: 4, backgroundColor: "black", p: 2, display: "inline-block" }}>Profile</Box>
             <Box >
                 <Box sx={{ px: 2, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}>
                     <Box sx={{ color: "#8d46ff", my: 2 }}>Name:</Box>
                     <Box component="h3" sx={{ px: 4 }}>
                         {user.name}
                     </Box>
-                    <Box sx={{ color: "#8d46ff", my: 2 }}>Email: </Box>
+                    <Box sx={{ color: "#8d46ff", mb: 2, mt: 6 }}>Email: </Box>
                     <Box component="h3" sx={{ px: 4 }}>
                         {user.username}
                     </Box>
-                    <Box sx={{ color: "#8d46ff", my: 2 }}>ID: </Box>
+                    <Box sx={{ color: "#8d46ff", mb: 2, mt: 6 }}>ID: </Box>
                     <Box component="h4" sx={{ px: 4 }}>
                         {user.localAccountId}
                     </Box>
-                    <Box sx={{ color: "#8d46ff", my: 2 }}>No. of posts: </Box>
+                    <Box sx={{ color: "#8d46ff", mb: 2, mt: 6 }}>No. of posts: </Box>
                     <Box component="h3" sx={{ px: 4 }}>
                         {number}
                     </Box>
