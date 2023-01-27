@@ -30,7 +30,7 @@ export default function CommentItem({ item }) {
     return (
         <Box>
             <Box sx={{ m: 2 }} >
-                {item.owner}: {item.content}
+                <Box sx={{ color: "#8d46ff", display: "inline" }}>{`${item.owner}: `}</Box><Box sx={{ display: "inline" }}>{item.content}</Box>
                 {isOwner &&
                     <Button sx={{ mx: 2 }} variant="outlined" onClick={deleteHandler}><DeleteOutlineIcon />Delete</Button>
                 }
