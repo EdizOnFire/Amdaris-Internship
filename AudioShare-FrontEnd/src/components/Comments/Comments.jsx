@@ -9,12 +9,12 @@ import CommentItem from "../CommentItem/CommentItem";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
 export default function Comments() {
-    const isAuthenticated = useIsAuthenticated();
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
     const { instance, accounts } = useMsal();
     const { user } = useContext(AuthContext);
     const { id } = useParams();
+    const isAuthenticated = useIsAuthenticated();
 
     const addCommentHandler = (e) => {
         e.preventDefault();
@@ -41,9 +41,10 @@ export default function Comments() {
     }, [commentText])
 
     return (
-        <Box component="section" sx={{ mt: 16 }} align='center'>
-            <Box component="h2">Comments:</Box>
-            <Box sx={{ color: "white" }}>
+        <Box component="section" sx={{ px: 2, mt: 4, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}
+            align='center'>
+            <Box component="h2" sx={{ color: "#8d46ff" }}>Comments:</Box>
+            <Box sx={{ mt: 3 }}>
                 {comments?.length > 0 ? (
                     comments.map((x) => (
                         <CommentItem key={x.id} item={x} />
@@ -56,7 +57,22 @@ export default function Comments() {
                 <Box component="form" align="center" onSubmit={addCommentHandler}>
                     <Box component="textarea"
                         name="comment"
-                        sx={{ minWidth: 250, minHeight: 100 }}
+                        sx={{
+                            p: 2,
+                            font: "inherit",
+                            border: 2,
+                            borderRadius: 2,
+                            borderColor: "#8d46ff",
+                            fontSize: 17,
+                            backgroundColor: "black",
+                            color: "white",
+                            minWidth: 400,
+                            minHeight: 20,
+                            width: 400,
+                            height: 20,
+                            maxWidth: 400,
+                            maxHeight: 150,
+                        }}
                         placeholder="Comment..."
                         value={commentText}
                         onChange={e => setCommentText(e.target.value)} />
@@ -67,4 +83,4 @@ export default function Comments() {
             )}
         </Box>
     );
-};
+}

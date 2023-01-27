@@ -5,4 +5,4 @@ import Browse from "./Browse/Browse";
 import Details from "./Details/Details";
 import Edit from "./Edit/Edit";
 
-export { Home, Upload, Browse, NotFound, Details, Edit }
+export { Home, Upload, Browse, NotFound, Details, Edit };

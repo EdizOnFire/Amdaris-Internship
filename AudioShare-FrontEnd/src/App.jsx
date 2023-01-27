@@ -2,7 +2,7 @@ import { Home, Upload, Browse, NotFound, Details, Edit } from "./pages";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AudioFileProvider } from "./contexts/AudioFileContext";
 import { AuthProvider } from "./contexts/AuthContext";
-import { Theme } from "./services/theme";
+import { Theme } from "./Theme";
 import Layout from "./components/Layout/Layout";
 
 export default function App() {
@@ -15,31 +15,31 @@ export default function App() {
         {
           index: true,
           element: <Home />,
-          errorElement: <NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "browse",
           element: <Browse />,
-          errorElement: <NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "upload",
           element: <Upload />,
-          errorElement: <NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "browse/:id",
           element: <Details />,
-          errorElement: <NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "browse/:id/edit",
           element: <Edit />,
-          errorElement: <NotFound />
+          errorElement: <NotFound />,
         },
         {
           path: "*",
-          element: <NotFound />
+          element: <NotFound />,
         },
       ],
     },
@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <Theme>
-      <AudioFileProvider >
+      <AudioFileProvider>
         <AuthProvider>
           <RouterProvider router={router} />
         </AuthProvider>

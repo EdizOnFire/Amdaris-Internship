@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
 import { Link } from "react-router-dom"
+import { Box } from "@mui/material";
 
-const NotFound = () => {
+export default function NotFound() {
     return (
         <Box component="section" display="inline-block" align="center" sx={{
             backgroundColor: "black",
@@ -19,6 +19,4 @@ const NotFound = () => {
             </Box>
         </Box>
     )
-};
-
-export default NotFound;
+}

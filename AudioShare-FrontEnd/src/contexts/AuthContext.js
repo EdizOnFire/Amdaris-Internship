@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useLocalStorage("user", {});
+    const [auth, setAuth] = useSessionStorage("user", {});
 
     const userLogin = (authData) => {
         setAuth(authData);
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
     const userLogout = () => {
         setAuth({});
-        localStorage.clear();
+        sessionStorage.clear();
     };
 
     return (
@@ -22,8 +22,7 @@ export const AuthProvider = ({ children }) => {
                 userLogin,
                 userLogout,
                 isAuthenticated: !!auth.accessToken,
-            }}
-        >
+            }}>
             {children}
         </AuthContext.Provider>
     );

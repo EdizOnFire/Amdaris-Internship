@@ -1,6 +1,12 @@
 import { createContext, useReducer, useEffect } from "react";
 // import { ADD_COMMENT, ADD_ITEM, ADD_ITEMS, EDIT_ITEM, FETCH_ITEM_DETAILS, DELETE_ITEM } from "../constants";
-import { ADD_ITEM, ADD_ITEMS, EDIT_ITEM, FETCH_ITEM_DETAILS, DELETE_ITEM } from "../constants";
+import {
+    ADD_ITEM,
+    ADD_ITEMS,
+    EDIT_ITEM,
+    FETCH_ITEM_DETAILS,
+    DELETE_ITEM,
+} from "../constants";
 
 import * as itemService from "../services/itemService";
 
@@ -35,25 +41,27 @@ export const AudioFileProvider = ({ children }) => {
     const [items, send] = useReducer(itemReducer, []);
 
     useEffect(() => {
-        itemService.getAll().then((result) => {
-            const action = {
-                type: "ADD_ITEMS",
-                payload: result,
-            };
+        itemService.getAll()
+            .then((result) => {
+                const action = {
+                    type: "ADD_ITEMS",
+                    payload: result,
+                };
 
-            send(action);
-        });
+                send(action);
+            })
+            .catch(error => { return error });
     }, []);
 
     const selectItem = (itemId) => {
-        return items.find((x) => x.id == itemId)
+        return items.find((x) => x.id == itemId);
     };
 
     const downloadUrl = async (path) => {
-        const response = await itemService.download(path)
+        const response = await itemService.download(path);
         const url = URL.createObjectURL(response);
         return url;
-    }
+    };
 
     const fetchItemDetails = (itemId, itemDetails) => {
         send({
@@ -104,7 +112,8 @@ export const AudioFileProvider = ({ children }) => {
                 downloadUrl,
                 itemEdit,
                 itemRemove,
-            }}>
+            }}
+        >
             {children}
         </AudioFileContext.Provider>
     );

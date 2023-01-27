@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
 import { Outlet, useNavigation } from "react-router-dom";
+import { Box } from "@mui/material";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 
 export default function Layout() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     return (
         <>
@@ -14,5 +14,5 @@ export default function Layout() {
             </Box >
             <Footer />
         </>
-    )
+    );
 }

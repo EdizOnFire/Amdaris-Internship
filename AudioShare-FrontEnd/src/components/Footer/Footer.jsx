@@ -1,10 +1,8 @@
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import RedditIcon from '@mui/icons-material/Reddit';
+import { Box, Container, Toolbar } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import RedditIcon from '@mui/icons-material/Reddit';
 
 export default function Footer() {
     return (
@@ -22,4 +20,4 @@ export default function Footer() {
             </Container>
         </Box>
     );
-};
+}

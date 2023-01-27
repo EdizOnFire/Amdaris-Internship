@@ -3,8 +3,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { Box, Button } from "@mui/material";
 import { useContext } from "react";
 import { useMsal } from "@azure/msal-react";
-import * as itemService from "../../services/itemService";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import * as itemService from "../../services/itemService";
 
 export default function CommentItem({ item }) {
     const { instance, accounts } = useMsal();
@@ -32,9 +32,9 @@ export default function CommentItem({ item }) {
             <Box sx={{ m: 2 }} className="comment">
                 {item.owner}: {item.content}
                 {isOwner &&
-                    <Button sx={{ m: 2 }} variant="outlined" onClick={deleteHandler}><DeleteOutlineIcon/>Delete</Button>
+                    <Button sx={{ mx: 2 }} variant="outlined" onClick={deleteHandler}><DeleteOutlineIcon />Delete</Button>
                 }
             </Box>
         </Box>
-    )
+    );
 }

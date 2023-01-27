@@ -1,23 +1,37 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { forwardRef, useContext, useEffect, useState } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { loginRequest } from "../../authConfig";
 import { AuthContext } from "../../contexts/AuthContext";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Snackbar } from "@mui/material";
 import { useMsal } from "@azure/msal-react";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import DownloadIcon from "@mui/icons-material/Download";
 import Comments from "../../components/Comments/Comments";
+import EditIcon from "@mui/icons-material/Edit";
+import MuiAlert from '@mui/material/Alert';
 import * as itemService from "../../services/itemService";
-import DownloadIcon from '@mui/icons-material/Download';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function Details() {
     const [loadingState, setLoadingState] = useState("Retrieving...");
     const [downloadLink, setDownloadLink] = useState("");
     const [item, setItem] = useState();
+    const [open, setOpen] = useState(false);
     const { instance, accounts } = useMsal();
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const navigate = useNavigate();
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     const isOwner = item?.user === user?.username;
 
@@ -28,7 +42,7 @@ export default function Details() {
             .catch((e) => {
                 return e;
             });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         if (item) {
@@ -53,14 +67,16 @@ export default function Details() {
 
         try {
             if (confirmation) {
-                instance
-                    .acquireTokenSilent({
-                        ...loginRequest,
-                        account: accounts[0],
-                    })
+                instance.acquireTokenSilent({
+                    ...loginRequest,
+                    account: accounts[0],
+                })
                     .then((response) => {
-                        itemService.remove(response.accessToken, id, item.fileName)
-                        setTimeout(() => { navigate('/') }, 1500)
+                        itemService.remove(response.accessToken, id, item.fileName);
+                        setOpen(true);
+                        setTimeout(() => {
+                            navigate("/browse");
+                        }, 1500);
                     });
             }
         } catch (error) {
@@ -70,57 +86,65 @@ export default function Details() {
 
     return (
         <Box
-            component="article"
-            display="inline-block"
-            sx={{
-                backgroundColor: "black",
-                width: 1000,
-                color: "#8d46ff",
-                border: 2,
-                m: 3,
-                borderRadius: 4
-            }}
-            align="center"
-            className="audioFile">
-            <Box component="h1" sx={{ color: "white" }} className="itemTitle">
-                {item?.title}
-            </Box>
-            <Box className="itemName">File name: {item?.fileName}</Box>
-            <Box>
-                <Button
-                    variant="outlined"
-                    sx={{ m: 3 }}
-                    href={downloadLink}
-                    download={item?.fileName}
-                >
-                    {downloadLink && <DownloadIcon sx={{ mr: 1 }} />}
-                    {loadingState}
-                </Button>
-            </Box>
-            <Box>
-                <Box component="audio" controls src={downloadLink} />
-            </Box>
-            {isOwner && (
-                <Box component="div" className="actionBtn">
-                    <Button href={`/browse/${id}/edit`} sx={{ m: 3 }} variant="contained">
-                        <EditIcon sx={{ mr: 1 }} />
-                        Edit
-                    </Button>
-                    <Button sx={{ m: 3 }} variant="contained" onClick={itemDeleteHandler}>
-                        <DeleteForeverIcon sx={{ mr: 1 }} />
-                        Delete
-                    </Button>
+        component="section"
+        align="center"
+            sx={{ backgroundColor: "black", borderRadius: 6 }}
+        >
+            <Box >
+                <Box sx={{ px: 2, mt: 4, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}>
+                    <Box sx={{ color: "#8d46ff", mt: 2 }}>By: {user.username}</Box>
+                    <Box component="h1" sx={{ px: 4 }}>
+                        {item?.title}
+                    </Box>
+                    <Box sx={{ color: "#8d46ff", mb: 2 }}>File name: {item?.fileName}</Box>
                 </Box>
-            )}
-            <Box
-                component="h1"
-                sx={{ m: 2 }}
-                className="itemDescription"
-            >
-                Description:
             </Box>
-            <Box sx={{ color: "white" }}>{item?.description}</Box>
+            <Box>
+                <Box sx={{ px: 2, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}>
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            sx={{ m: 3 }}
+                            href={downloadLink}
+                            download={item?.fileName}
+                        >
+                            {downloadLink && <DownloadIcon sx={{ mr: 1 }} />}
+                            {loadingState}
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Box component="audio" controls src={downloadLink} />
+                    </Box>
+                    {isOwner && (
+                        <Box component="div">
+                            <Link to={`/browse/${id}/edit`}>
+                                <Button sx={{ m: 3 }} variant="contained">
+                                    <EditIcon sx={{ mr: 1 }} />
+                                    Edit
+                                </Button>
+                            </Link>
+                            <Button sx={{ m: 3 }} variant="contained" onClick={itemDeleteHandler}>
+                                <DeleteForeverIcon sx={{ mr: 1 }} />
+                                Delete
+                            </Button>
+                        </Box>
+                    )}
+                </Box>
+            </Box>
+            <Box>
+                <Box sx={{ px: 2, mt: 4, border: 2, borderColor: "black", borderRadius: 10, display: "inline-block", backgroundColor: "black" }}>
+                    <Box component="h1" sx={{ color: "#8d46ff", m: 2 }}>
+                        Description:
+                    </Box>
+                    <Box sx={{ my: 4 }}>{item?.description}</Box>
+                </Box>
+            </Box>
             <Comments />
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Deleted successfully!
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
